@@ -87,22 +87,15 @@ export class DataService {
 
   postReview(id: any, review: any) {
     let newReview = {
-        'username': review.username,
-        'comment': review.comment,
-        'stars': review.stars,
+    'username' : review.username,
+    'comment' : review.comment,
+    'stars' : review.stars
     };
-    jsonData.forEach(function (business) {
-        if (business['_id']['$oid'] == id) {
-            console.log('Posting review:', newReview); // Debugging log
-            console.log('Before update:', business);   // Debugging log
-            if (!business['reviews']) {
-                business['reviews'] = [];
-            }
-            business['reviews'].push(newReview);
-        }
+    jsonData.forEach( function(business) {
+      if ( business['_id']['$oid'] == id )
+        business['reviews'].push(  );
     });
-}
-
+ }
 
 
 }
