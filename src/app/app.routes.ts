@@ -5,16 +5,15 @@ import { BusinessComponent } from './business.component';
 
 export const routes: Routes = [
   {
-  path: '',
-  component: HomeComponent
+    path: '',
+    component: HomeComponent
   },
   {
-  path: 'businesses',
-  component: BusinessesComponent
+    path: 'businesses',
+    component: BusinessesComponent
   },
   {
     path: 'businesses/:id',
     component: BusinessComponent
-    }
-
+  }
 ];

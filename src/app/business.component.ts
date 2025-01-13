@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { WebService } from './web.service';
 
@@ -16,8 +15,9 @@ import { WebService } from './web.service';
   templateUrl: './business.component.html',
   styleUrls: ['./business.component.css'],
 })
-export class BusinessComponent {
-  business_list: any = [];
+export class BusinessComponent implements OnInit {
+  business_list: any[] = [];
+  business: any;
   business_lat: any;
   business_lng: any;
   map_options: google.maps.MapOptions = {};
@@ -44,50 +44,50 @@ export class BusinessComponent {
       stars: [5, Validators.required],
     });
 
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.business_list = this.dataService.getBusiness(id);
+    const businessId = this.route.snapshot.paramMap.get('id');
+    if (businessId) {
+      this.business = this.dataService.getBusiness(businessId);
 
-      if (this.business_list && this.business_list.length > 0) {
-        const business = this.business_list[0];
+      if (this.business) {
+        if (this.business.location && this.business.location.coordinates) {
+          this.business_lat = this.business.location.coordinates[0];
+          this.business_lng = this.business.location.coordinates[1];
 
-        console.log('Reviews:', business.reviews || []);
-
-        this.business_lat = business.location.coordinates[0];
-        this.business_lng = business.location.coordinates[1];
-
-        this.map_locations.push({
-          lat: this.business_lat,
-          lng: this.business_lng,
-        });
-
-        this.map_options = {
-          mapId: 'DEMO_MAP_ID',
-          center: {
+          this.map_locations.push({
             lat: this.business_lat,
             lng: this.business_lng,
-          },
-          zoom: 13,
-        };
-
-        this.dataService.getLoremIpsum(1).subscribe((response: any) => {
-          this.loremIpsum = response.text.slice(0, 400);
-        });
-
-        this.dataService
-          .getCurrentWeather(this.business_lat, this.business_lng)
-          .subscribe((response: any) => {
-            const weatherResponse = response['weather'][0]['description'];
-            this.temperature = Math.round(response['main']['temp']);
-            this.weather =
-              weatherResponse[0].toUpperCase() + weatherResponse.slice(1);
-            this.weatherIcon = response['weather'][0]['icon'];
-            this.weatherIconURL =
-              'https://openweathermap.org/img/wn/' + this.weatherIcon + '@4x.png';
-            this.temperatureColour = this.dataService.getTemperatureColour(
-              this.temperature
-            );
           });
+
+          this.map_options = {
+            mapId: 'DEMO_MAP_ID',
+            center: {
+              lat: this.business_lat,
+              lng: this.business_lng,
+            },
+            zoom: 13,
+          };
+
+          this.dataService.getLoremIpsum(1).subscribe((response: any) => {
+            this.loremIpsum = response.text.slice(0, 400);
+          });
+
+          this.dataService
+            .getCurrentWeather(this.business_lat, this.business_lng)
+            .subscribe((response: any) => {
+              const weatherResponse = response['weather'][0]['description'];
+              this.temperature = Math.round(response['main']['temp']);
+              this.weather =
+                weatherResponse[0].toUpperCase() + weatherResponse.slice(1);
+              this.weatherIcon = response['weather'][0]['icon'];
+              this.weatherIconURL =
+                'https://openweathermap.org/img/wn/' + this.weatherIcon + '@4x.png';
+              this.temperatureColour = this.dataService.getTemperatureColour(
+                this.temperature
+              );
+            });
+        } else {
+          console.error('Business location coordinates are missing');
+        }
       } else {
         console.error('No business found for the given ID');
       }
@@ -97,9 +97,9 @@ export class BusinessComponent {
   }
 
   onSubmit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.dataService.postReview(id, this.reviewForm.value);
+    const businessId = this.route.snapshot.paramMap.get('id');
+    if (businessId) {
+      this.dataService.postReview(businessId, this.reviewForm.value);
       this.reviewForm.reset();
     } else {
       console.error('Unable to submit review: No business ID found');
@@ -127,7 +127,8 @@ export class BusinessComponent {
       this.isUntouched()
     );
   }
+
+  trackByFn(index: number, item: any): any {
+    return item._id?.$oid || index;
+  }
 }
-
-
-
