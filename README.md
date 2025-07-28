@@ -1,8 +1,30 @@
 # BizFE
 
+## Requirements
+
+Before you begin, make sure you have the following installed on your system:
+
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [Angular CLI](https://angular.io/cli)
+
+To install Angular CLI globally, run:
+
+```bash
+npm install -g @angular/cli
+```
+
+---
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
 
 ## Development server
+
+First, install project dependencies:
+
+```bash
+npm install
+```
 
 To start a local development server, run:
 
