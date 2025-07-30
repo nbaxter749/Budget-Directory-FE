@@ -34,24 +34,23 @@ export class BusinessComponent implements OnInit {
     public dataService: DataService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private webService: WebService
   ) {}
 
   ngOnInit() {
     this.reviewForm = this.formBuilder.group({
       username: ['', Validators.required],
       comment: ['', Validators.required],
-      stars: [5, Validators.required],
+      stars: 5
     });
+    this.webService
+      .getBusiness(this.route.snapshot.paramMap.get('id'))
+      .subscribe((response: any) => {
+        this.business_list = [response];
 
-    const businessId = this.route.snapshot.paramMap.get('id');
-    if (businessId) {
-      this.business = this.dataService.getBusiness(businessId);
-
-      if (this.business) {
-        if (this.business.location && this.business.location.coordinates) {
-          this.business_lat = this.business.location.coordinates[0];
-          this.business_lng = this.business.location.coordinates[1];
+        this.business_lat = this.business_list[0].location.coordinates[0];
+        this.business_lng = this.business_list[0].location.coordinates[1];
 
           this.map_locations.push({
             lat: this.business_lat,
@@ -85,16 +84,10 @@ export class BusinessComponent implements OnInit {
                 this.temperature
               );
             });
-        } else {
-          console.error('Business location coordinates are missing');
-        }
-      } else {
-        console.error('No business found for the given ID');
-      }
-    } else {
-      console.error('Invalid ID in route parameters');
+
+        });
+      
     }
-  }
 
   onSubmit() {
     const businessId = this.route.snapshot.paramMap.get('id');
