@@ -29,6 +29,7 @@ export class BusinessComponent implements OnInit {
   weatherIconURL: any;
   temperatureColour: any;
   reviewForm: any;
+  review_list: any;
 
   constructor(
     public dataService: DataService,
@@ -86,17 +87,28 @@ export class BusinessComponent implements OnInit {
             });
 
         });
-      
+
+        this.webService.getReviews(
+          this.route.snapshot.paramMap.get('id'))
+          .subscribe( (response) => {
+          this.review_list = response;
+          });
     }
 
   onSubmit() {
-    const businessId = this.route.snapshot.paramMap.get('id');
-    if (businessId) {
-      this.dataService.postReview(businessId, this.reviewForm.value);
+    this.webService.postReview(
+      this.route.snapshot.paramMap.get('id'),
+      this.reviewForm.value)
+      .subscribe( (response) => {
       this.reviewForm.reset();
-    } else {
-      console.error('Unable to submit review: No business ID found');
-    }
+
+      this.webService.getReviews(
+        this.route.snapshot.paramMap.get('id'))
+        .subscribe( (response) => {
+        this.review_list = response;
+        });
+        
+      });
   }
 
   isInvalid(control: any) {
