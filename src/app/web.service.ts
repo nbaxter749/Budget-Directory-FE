@@ -8,7 +8,13 @@ export class WebService {
 
   constructor(private http: HttpClient) {}
 
-  getBusinesses(page: number) {
+  getBusinesses() {
+    return this.http.get<any>(
+      'http://localhost:5001/api/v1.0/allbusinesses'
+    );
+  }
+
+  getBusinessesPage(page: number) {
     return this.http.get<any[]>(
       'http://localhost:5001/api/v1.0/businesses?pn=' + page + '&ps=' + this.pageSize
     );

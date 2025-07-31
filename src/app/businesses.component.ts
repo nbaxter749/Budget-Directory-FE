@@ -22,7 +22,7 @@ export class BusinessesComponent {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']);
     }
-    this.webService.getBusinesses(this.page).subscribe((response) => {
+    this.webService.getBusinessesPage(this.page).subscribe((response) => {
       this.business_list = response;
     });
   }
@@ -31,7 +31,7 @@ export class BusinessesComponent {
     if (this.page > 1) {
       this.page = this.page - 1;
       sessionStorage['page'] = this.page;
-      this.webService.getBusinesses(this.page).subscribe((response) => {
+      this.webService.getBusinessesPage(this.page).subscribe((response) => {
         this.business_list = response;
       });
     }
@@ -41,7 +41,7 @@ export class BusinessesComponent {
     if (this.page < this.dataService.getLastPageNumber()) {
       this.page = this.page + 1;
       sessionStorage['page'] = this.page;
-      this.webService.getBusinesses(this.page).subscribe((response) => {
+      this.webService.getBusinessesPage(this.page).subscribe((response) => {
         this.business_list = response;
       });
     }
