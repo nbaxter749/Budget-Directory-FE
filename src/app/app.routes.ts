@@ -3,6 +3,7 @@ import { HomeComponent } from './home.component';
 import { BusinessesComponent } from './businesses.component';
 import { BusinessComponent } from './business.component';
 import { GridComponent } from './grid.component';
+import { TestWSComponent } from './testWS.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'grid',
     component: GridComponent
+  },
+  {
+    path: 'test',
+    component: TestWSComponent
   }
 ];
