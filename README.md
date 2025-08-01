@@ -1,6 +1,6 @@
 # Budget Directory Frontend
 
-A full-stack budget management application built with Angular 19, featuring AG Grid for data display, pagination, filtering, and comprehensive testing.
+A full-stack budget management application built with Angular 18.2.13, featuring AG Grid for data display, pagination, filtering, and comprehensive testing.
 
 ## Features
 
