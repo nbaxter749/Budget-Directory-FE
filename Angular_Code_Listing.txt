@@ -1,0 +1,1814 @@
+﻿Budget Directory Angular Application - Source Code Listing
+============================================================
+
+=== app.component.spec.ts ===
+--------------------------------------------------
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'Budget Directory FE' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('Budget Directory FE');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Budget Directory FE');
+  });
+});
+
+
+
+=== app.component.ts ===
+--------------------------------------------------
+import { Component } from '@angular/core';
+import { BudgetsComponent } from './budgets.component';
+import { RouterOutlet } from '@angular/router';
+import { NavComponent } from './nav.component';
+import { CommonModule } from '@angular/common';
+
+/**
+ * The main application component that serves as the root
+ * of the Budget Directory application.
+ */
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, BudgetsComponent, NavComponent, CommonModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  /**
+   * The title of the application
+   */
+  title = 'Budget Directory FE';
+}
+
+
+
+=== app.config.ts ===
+--------------------------------------------------
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+
+/**
+ * The application configuration that sets up routing,
+ * HTTP client, and Auth0 authentication for the Budget Directory.
+ */
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+};
+
+
+
+=== app.routes.ts ===
+--------------------------------------------------
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home.component';
+import { BudgetsComponent } from './budgets.component';
+import { BudgetComponent } from './budget.component';
+import { GridComponent } from './grid.component';
+import { TestWSComponent } from './testWS.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'budgets', component: BudgetsComponent },
+  { path: 'budget/:id', component: BudgetComponent },
+  { path: 'grid', component: GridComponent },
+  { path: 'test', component: TestWSComponent }
+];
+
+
+
+=== authButton.component.ts ===
+--------------------------------------------------
+import { Component, Inject } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+/**
+ * The AuthButton Component provides authentication functionality
+ * with login and logout buttons for the Budget Directory application.
+ */
+@Component({
+  selector: 'auth-button',
+  templateUrl: 'authbutton.component.html',
+  standalone: true,
+  imports: [AsyncPipe, CommonModule],
+  providers: [Router]
+})
+
+export class AuthButtonComponent {
+  /**
+   * The constructor for the AuthButton Component
+   * @param document Injecting the Document for DOM access
+   * @param auth Injecting the AuthService for authentication functionality
+   * @param router Injecting the Router for navigation
+   */
+  constructor(@Inject(DOCUMENT) public document: Document,
+  public auth: AuthService,
+  public router: Router) {}
+}
+
+
+
+=== authuser.component.ts ===
+--------------------------------------------------
+import { Component } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
+/**
+ * The AuthUser Component displays current user information
+ * and authentication status for the Budget Directory application.
+ */
+@Component({
+  selector: 'user-profile',
+  templateUrl: 'authuser.component.html',
+  standalone: true,
+  imports: [AsyncPipe, CommonModule],
+})
+export class AuthUserComponent {
+  /**
+   * The constructor for the AuthUser Component
+   * @param auth Injecting the AuthService for user authentication data
+   */
+  constructor(public auth: AuthService) {}
+}
+
+
+
+=== budget.component.ts ===
+--------------------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, ActivatedRoute } from '@angular/router';
+import { DataService } from './data.service';
+import { CommonModule } from '@angular/common';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
+import { WebService } from './web.service';
+
+/**
+ * The Budget Component displays detailed information about a specific budget
+ * including location data, weather information, and user reviews.
+ */
+@Component({
+  selector: 'budget',
+  standalone: true,
+  imports: [RouterOutlet, CommonModule, GoogleMapsModule, ReactiveFormsModule],
+  providers: [DataService, WebService],
+  templateUrl: './budget.component.html',
+  styleUrls: ['./budget.component.css'],
+})
+export class BudgetComponent implements OnInit {
+  /**
+   * Array containing the budget data for display
+   */
+  budget_list: any[] = [];
+
+  /**
+   * The current budget object being displayed
+   */
+  budget: any;
+
+  /**
+   * The latitude coordinate for the budget location
+   */
+  budget_lat: any;
+
+  /**
+   * The longitude coordinate for the budget location
+   */
+  budget_lng: any;
+
+  /**
+   * Configuration options for the Google Maps component
+   */
+  map_options: google.maps.MapOptions = {};
+
+  /**
+   * Array of location coordinates for the map markers
+   */
+  map_locations: any[] = [];
+
+  /**
+   * Lorem Ipsum text for the budget description
+   */
+  loremIpsum: any;
+
+  /**
+   * Current temperature value
+   */
+  temperature: any;
+
+  /**
+   * Current weather description
+   */
+  weather: any;
+
+  /**
+   * Weather icon identifier
+   */
+  weatherIcon: any;
+
+  /**
+   * URL for the weather icon image
+   */
+  weatherIconURL: any;
+
+  /**
+   * Color representation of the temperature
+   */
+  temperatureColour: any;
+
+  /**
+   * Form group for the review submission form
+   */
+  reviewForm: any;
+
+  /**
+   * Array containing the reviews for the current budget
+   */
+  review_list: any;
+
+  /**
+   * The constructor for the Budget Component
+   * @param dataService Injecting the DataService for external API calls
+   * @param route Injecting the ActivatedRoute for getting route parameters
+   * @param formBuilder Injecting the FormBuilder for creating reactive forms
+   * @param authService Injecting the AuthService for authentication checks
+   * @param webService Injecting the WebService for API calls
+   */
+  constructor(
+    public dataService: DataService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
+    private webService: WebService
+  ) {}
+
+  /**
+   * Initialize the component by setting up the review form,
+   * loading budget data, and fetching related information
+   */
+  ngOnInit() {
+    this.reviewForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      comment: ['', Validators.required],
+      stars: 5
+    });
+    this.webService
+      .getBudget(this.route.snapshot.paramMap.get('id'))
+      .subscribe((response: any) => {
+        this.budget_list = [response];
+
+        this.budget_lat = this.budget_list[0].location.coordinates[0];
+        this.budget_lng = this.budget_list[0].location.coordinates[1];
+
+          this.map_locations.push({
+            lat: this.budget_lat,
+            lng: this.budget_lng,
+          });
+
+          this.map_options = {
+            mapId: 'DEMO_MAP_ID',
+            center: {
+              lat: this.budget_lat,
+              lng: this.budget_lng,
+            },
+            zoom: 13,
+          };
+
+          this.dataService.getLoremIpsum(1).subscribe((response: any) => {
+            this.loremIpsum = response.text.slice(0, 400);
+          });
+
+          this.dataService
+            .getCurrentWeather(this.budget_lat, this.budget_lng)
+            .subscribe((response: any) => {
+              const weatherResponse = response['weather'][0]['description'];
+              this.temperature = Math.round(response['main']['temp']);
+              this.weather =
+                weatherResponse[0].toUpperCase() + weatherResponse.slice(1);
+              this.weatherIcon = response['weather'][0]['icon'];
+              this.weatherIconURL =
+                'https://openweathermap.org/img/wn/' + this.weatherIcon + '@4x.png';
+              this.temperatureColour = this.dataService.getTemperatureColour(
+                this.temperature
+              );
+            });
+
+        });
+
+        this.webService.getReviews(
+          this.route.snapshot.paramMap.get('id'))
+          .subscribe( (response) => {
+          this.review_list = response;
+          });
+    }
+
+  /**
+   * Submit a new review for the current budget
+   * Posts the review data and refreshes the reviews list
+   */
+  onSubmit() {
+    this.webService.postReview(
+      this.route.snapshot.paramMap.get('id'),
+      this.reviewForm.value)
+      .subscribe( (response) => {
+      this.reviewForm.reset();
+
+      this.webService.getReviews(
+        this.route.snapshot.paramMap.get('id'))
+        .subscribe( (response) => {
+        this.review_list = response;
+        });
+        
+      });
+  }
+
+  /**
+   * Check if a form control is invalid and has been touched
+   * @param control The name of the form control to check
+   * @returns True if the control is invalid and has been touched
+   */
+  isInvalid(control: any) {
+    return (
+      this.reviewForm.controls[control].invalid &&
+      this.reviewForm.controls[control].touched
+    );
+  }
+
+  /**
+   * Check if form controls are untouched
+   * @returns True if username or comment controls are pristine
+   */
+  isUntouched() {
+    return (
+      this.reviewForm.controls.username.pristine ||
+      this.reviewForm.controls.comment.pristine
+    );
+  }
+
+  /**
+   * Check if the review form is incomplete
+   * @returns True if any required field is invalid or untouched
+   */
+  isIncomplete() {
+    return (
+      this.isInvalid('username') ||
+      this.isInvalid('comment') ||
+      this.isUntouched()
+    );
+  }
+
+  /**
+   * Track function for ngFor to optimize rendering performance
+   * @param index The index of the item in the array
+   * @param item The review item being tracked
+   * @returns The unique identifier for the review item
+   */
+  trackByFn(index: number, item: any): any {
+    return item._id?.$oid || index;
+  }
+}
+
+
+
+=== budgets.component.ts ===
+--------------------------------------------------
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { DataService } from './data.service';
+import { WebService } from './web.service';
+import { CommonModule } from '@angular/common';
+
+/**
+ * The Budgets Component displays a paginated list of budget cards
+ * with navigation controls for browsing through the budget directory.
+ */
+@Component({
+  selector: 'budgets',
+  standalone: true,
+  imports: [RouterOutlet, RouterModule, CommonModule],
+  providers: [DataService, WebService],
+  templateUrl: './budgets.component.html',
+  styleUrls: ['./budgets.component.css'],
+})
+export class BudgetsComponent {
+  /**
+   * Array containing the list of budgets for the current page
+   */
+  budget_list: any = [];
+
+  /**
+   * The current page number being displayed
+   */
+  page: number = 1;
+
+  /**
+   * The constructor for the Budgets Component
+   * @param dataService Injecting the DataService for pagination calculations
+   * @param webService Injecting the WebService for API calls
+   */
+  constructor(public dataService: DataService, private webService: WebService) {}
+
+  /**
+   * Initialize the component by loading the first page of budgets
+   * and restoring the page number from session storage if available
+   */
+  ngOnInit() {
+    if (sessionStorage['page']) {
+      this.page = Number(sessionStorage['page']);
+    }
+    this.webService.getBudgetsPage(this.page).subscribe((response) => {
+      this.budget_list = response;
+    });
+  }
+
+  /**
+   * Navigate to the previous page of budgets
+   * Updates the page number and loads the corresponding data
+   */
+  previousPage() {
+    if (this.page > 1) {
+      this.page = this.page - 1;
+      sessionStorage['page'] = this.page;
+      this.webService.getBudgetsPage(this.page).subscribe((response) => {
+        this.budget_list = response;
+      });
+    }
+  }
+
+  /**
+   * Navigate to the next page of budgets
+   * Updates the page number and loads the corresponding data
+   */
+  nextPage() {
+    if (this.page < this.dataService.getLastPageNumber()) {
+      this.page = this.page + 1;
+      sessionStorage['page'] = this.page;
+      this.webService.getBudgetsPage(this.page).subscribe((response) => {
+        this.budget_list = response;
+      });
+    }
+  }
+
+  /**
+   * Track function for ngFor to optimize rendering performance
+   * @param index The index of the item in the array
+   * @param item The budget item being tracked
+   * @returns The unique identifier for the budget item
+   */
+  trackByFn(index: number, item: any): any {
+    return item._id?.$oid || index;
+  }
+}
+
+
+
+
+=== data.service.ts ===
+--------------------------------------------------
+import jsonData from '../assets/budgets.json';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+/**
+ * The Data Service provides access to budget data and external APIs
+ * including Lorem Ipsum and weather information.
+ */
+@Injectable({
+  providedIn: 'root',
+})
+export class DataService {
+  /**
+   * The default page size for pagination
+   */
+  pageSize: number = 3;
+
+  /**
+   * The constructor for the Data Service
+   * @param http Injecting the HttpClient to the DataService class
+   */
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Fetch a page of budgets from the local JSON data
+   * @param page The page number requested
+   * @returns An array of budget objects for the requested page
+   */
+  getBudgets(page: number) {
+    let pageStart = (page - 1) * this.pageSize;
+    let pageEnd = pageStart + this.pageSize;
+    return jsonData.slice(pageStart, pageEnd);
+  }
+
+  /**
+   * Calculate the total number of pages available
+   * @returns The total number of pages
+   */
+  getLastPageNumber() {
+    return Math.ceil(jsonData.length / this.pageSize);
+  }
+
+  /**
+   * Fetch a specific budget by ID from the local JSON data
+   * @param id The budget ID to search for
+   * @returns An array containing the matching budget object
+   */
+  getBudget(id: any) {
+    let dataToReturn: any[] = [];
+    jsonData.forEach(function (budget) {
+      if (budget['_id']['$oid'] == id) {
+        dataToReturn.push(budget);
+      }
+    });
+    return dataToReturn;
+  }
+
+  /**
+   * Fetch Lorem Ipsum text from the API Ninjas service
+   * @param paragraphs The number of paragraphs to fetch
+   * @returns An Observable for the Lorem Ipsum text
+   */
+  getLoremIpsum(paragraphs: number): Observable<any> {
+    let API_key = 'MbJTYZVSdxgZBv3JoSLXZA==64dtY35KCzqWJm9Q';
+    return this.http.get<any>(
+      'https://api.api-ninjas.com/v1/loremipsum?paragraphs=' + paragraphs,
+      { headers: { 'X-Api-Key': API_key } }
+    );
+  }
+
+  /**
+   * Fetch current weather data for a specific location
+   * @param lat The latitude coordinate
+   * @param lon The longitude coordinate
+   * @returns An Observable for the weather data
+   */
+  getCurrentWeather(lat: number, lon: number) {
+    let API_key = 'af243c3d35c6f4fa444bd0594f3f09f6';
+    return this.http.get<any>(
+      'https://api.openweathermap.org/data/2.5/weather?lat=' +
+        lat +
+        '&lon=' +
+        lon +
+        '&units=metric&appid=' +
+        API_key
+    );
+  }
+
+  /**
+   * Get the color representation for a temperature value
+   * @param temp The temperature in Celsius
+   * @returns A hex color code based on the temperature
+   */
+  getTemperatureColour(temp: number) {
+    if (temp <= 5) return '#0000ff';
+    else if (temp <= 12) return '#00ff00';
+    else if (temp <= 17) return '#ffff00';
+    else if (temp <= 25) return '#ff7f00';
+    else return '#ff0000';
+  }
+
+  /**
+   * Populate reviews for all budgets with random Lorem Ipsum text
+   */
+  populateReviews() {
+    let loremIpsum = '';
+    this.getLoremIpsum(1).subscribe((response: any) => {
+      loremIpsum = response.text;
+
+      jsonData.forEach((budget: any) => {
+        if (!budget.reviews) {
+          budget.reviews = [];
+        }
+        let numReviews = Math.floor(Math.random() * 10);
+        for (let i = 0; i < numReviews; i++) {
+          let textSize = Math.floor(Math.random() * 290 + 10);
+          let textStart = Math.floor(
+            Math.random() * (loremIpsum.length - textSize)
+          );
+          let dummyReview = {
+            username: 'User ' + Math.floor(Math.random() * 9999 + 1),
+            comment: loremIpsum.slice(textStart, textStart + textSize),
+            stars: Math.floor(Math.random() * 5) + 1,
+          };
+          budget.reviews.push(dummyReview);
+        }
+      });
+    });
+  }
+
+  /**
+   * Post a new review to the local JSON data
+   * @param id The budget ID to add the review to
+   * @param review The review object containing username, comment, and stars
+   */
+  postReview(id: any, review: any) {
+    let newReview = {
+    'username' : review.username,
+    'comment' : review.comment,
+    'stars' : review.stars
+    };
+    jsonData.forEach( function(budget) {
+      if ( budget['_id']['$oid'] == id )
+        budget['reviews'].push(  );
+    });
+ }
+}
+
+
+
+=== grid.component.ts ===
+--------------------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { WebService } from './web.service';
+import { AgGridAngular } from 'ag-grid-angular';
+import { ColDef } from 'ag-grid-community';
+
+/**
+ * The Grid Component displays budget data in an AG Grid format
+ * with advanced features like sorting, filtering, and pagination.
+ */
+@Component({
+  selector: 'grid',
+  standalone: true,
+  imports: [RouterOutlet, AgGridAngular],
+  providers: [WebService],
+  templateUrl: './grid.component.html',
+  styleUrl: './grid.component.css'
+})
+export class GridComponent implements OnInit {
+
+  /**
+   * Column definitions for the AG Grid
+   */
+  headings: ColDef[] = [
+    { field: "username", headerName: "Username", filter: true, floatingFilter: true },
+    { field: "town", headerName: "Town", filter: true },
+    { field: "monthly_income", headerName: "Monthly Income", filter: true },
+    { valueGetter: "data.savings.current", headerName: "Current Savings" },
+    { valueGetter: "data.savings.goal", headerName: "Savings Goal" },
+    { valueGetter: "data.savings.progress", headerName: "Progress %" }
+  ];
+
+  /**
+   * Array containing the budget data for the grid
+   */
+  data: any = [];
+
+  /**
+   * Enable pagination for the grid
+   */
+  pagination = true;
+
+  /**
+   * Number of items to display per page
+   */
+  paginationPageSize = 10;
+
+  /**
+   * Available page size options for the user to select
+   */
+  paginationPageSizeSelector = [10, 25, 50];
+
+  /**
+   * Disable automatic page size calculation
+   */
+  paginationAutoPageSize = false;
+
+  /**
+   * The constructor for the Grid Component
+   * @param webService Injecting the WebService for API calls
+   */
+  constructor(private webService: WebService) { }
+
+  /**
+   * Initialize the component by loading budget data from the API
+   */
+  ngOnInit() {
+    this.webService.getBudgets()
+      .subscribe((response) => {
+        this.data = response;
+      });
+  }
+} 
+
+
+=== home.component.ts ===
+--------------------------------------------------
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+/**
+ * The Home Component displays the welcome page for the Budget Directory
+ * with navigation links to different sections of the application.
+ */
+@Component({
+  selector: 'home',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
+})
+export class HomeComponent {
+}
+
+
+
+=== main.ts ===
+--------------------------------------------------
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAuth0 } from '@auth0/auth0-angular';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+import { provideHttpClient } from '@angular/common/http';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideAuth0({
+      domain: 'dev-ttcgt58qcsubpg85.us.auth0.com',
+      clientId: 'R39CnAq7GBU1WgdVQ0BpqFUMAuJGw4qa',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
+    provideHttpClient(),
+    appConfig.providers
+  ]
+}).catch((err) => console.error(err));
+
+
+
+=== nav.component.ts ===
+--------------------------------------------------
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { AuthButtonComponent } from "./authButton.component";
+import { AuthUserComponent } from "./authuser.component";
+
+/**
+ * The Navigation Component provides the main navigation bar
+ * for the Budget Directory application with links to different pages.
+ */
+@Component({
+  selector: 'navigation',
+  standalone: true,
+  imports: [RouterOutlet, RouterModule, AuthButtonComponent,
+    AuthUserComponent],
+  templateUrl: './nav.component.html'
+})
+export class NavComponent {}
+
+
+
+=== testWS.component.ts ===
+--------------------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { WebService } from './web.service';
+
+/**
+ * The TestWS Component provides testing functionality for the WebService
+ * by executing various API calls and displaying the results.
+ */
+@Component({
+    selector: 'testWS',
+    standalone: true,
+    providers: [WebService],
+    templateUrl: './testWS.component.html'
+})
+export class TestWSComponent implements OnInit {
+
+    /**
+     * Array containing the test output messages
+     */
+    test_output: string[] = [];
+
+    /**
+     * Array containing the first page of budget data for comparison
+     */
+    first_budget_list: any[] = [];
+
+    /**
+     * Array containing the second page of budget data for comparison
+     */
+    second_budget_list: any[] = [];
+
+    /**
+     * The constructor for the TestWS Component
+     * @param webService Injecting the WebService for API testing
+     */
+    constructor(private webService: WebService) {}
+
+    /**
+     * Test the getBudgetsPage method by fetching paginated budgets
+     * and adding the result to the test output
+     */
+    private testBudgetsFetched() {
+        this.webService.getBudgetsPage(1)
+        .subscribe( (response) => {
+        if (Array.isArray(response) && response.length == 4)
+            this.test_output.push("Page of budgets fetched... PASS");
+        else
+            this.test_output.push("Page of budgets fetched... FAIL");
+        })
+    }
+
+    /**
+     * Test pagination by comparing pages 1 and 2
+     * and adding the result to the test output
+     */
+    private testPagesOfBudgetsAreDifferent() {
+        this.webService.getBudgetsPage(1)
+            .subscribe( (response) => {
+                this.first_budget_list = response;
+                this.webService.getBudgetsPage(2)
+                    .subscribe( (response) => {
+                        this.second_budget_list = response;
+                        if (this.first_budget_list[0]["_id"] != this.second_budget_list[0]["_id"])
+                            this.test_output.push("Pages 1 and 2 are different... PASS");
+                        else
+                            this.test_output.push("Pages 1 and 2 are different... FAIL");
+                    })
+            })
+    }
+
+    /**
+     * Test the getBudget method by fetching a specific budget
+     * and adding the result to the test output
+     */
+    private testGetBudget() {
+        this.webService.getBudget('67282e7643ddadda742694b4') // Hardcoded ID for testing
+            .subscribe( (response) => {
+                if (response.username)
+                    this.test_output.push("Fetch budget by ID... PASS");
+                else
+                    this.test_output.push("Fetch budget by ID... FAIL");
+            })
+    }
+
+    /**
+     * Test the getReviews method by fetching reviews for a budget
+     * and adding the result to the test output
+     */
+    private testGetReviews() {
+        this.webService.getReviews('67282e7643ddadda742694b4')
+            .subscribe( (response) => {
+                if (Array.isArray(response))
+                    this.test_output.push("Fetch reviews of budget... PASS");
+                else
+                    this.test_output.push("Fetch reviews of budget... FAIL");
+            })
+    }
+
+    /**
+     * Test the postReview method by adding a new review
+     * and adding the result to the test output
+     */
+    private testPostReview() {
+        let test_review = {
+            "username" : "Test User",
+            "comment" : "Test Comment",
+            "stars" : 5
+        };
+        this.webService.getReviews('67282e7643ddadda742694b4')
+            .subscribe( (response) => {
+                let numReviews = response.length;
+                this.webService.postReview('67282e7643ddadda742694b4', test_review)
+                    .subscribe( (response) => {
+                this.webService.getReviews('67282e7643ddadda742694b4')
+                    .subscribe( (response) => {
+                        if (response.length == numReviews + 1)
+                            this.test_output.push("Post review... PASS");
+                        else
+                            this.test_output.push("Post review... FAIL");
+                    })
+                })
+        })
+    }
+
+    /**
+     * Initialize the component by running all test methods
+     */
+    ngOnInit() {
+        this.testBudgetsFetched();
+        this.testPagesOfBudgetsAreDifferent();
+        this.testGetBudget();
+        this.testGetReviews();
+        this.testPostReview();
+    }
+}
+
+
+
+=== web.service.ts ===
+--------------------------------------------------
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+/**
+ * The Web Service provides access to the endpoints of the
+ * Budget Directory API.
+ */
+@Injectable()
+export class WebService {
+
+  /**
+   * The default page size to be returned
+   */
+  pageSize: number = 4;
+
+  /**
+   * The constructor for the Web Service
+   * @param http Injecting the HttpClient to the WebService class
+   */
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Fetch all budgets from the Budget Directory API
+   * @returns An Observable for the collection of all budgets
+   */
+  getBudgets() {
+    return this.http.get<any>(
+      'http://localhost:5001/api/v1.0/allbudgets'
+    );
+  }
+
+  /**
+   * Fetch a page of budgets from the Budget Directory API
+   * @param page The page number requested
+   * @returns An Observable for the collection of budgets
+   */
+  getBudgetsPage(page: number) {
+    return this.http.get<any[]>(
+      'http://localhost:5001/api/v1.0/budgets?pn=' + page + '&ps=' + this.pageSize
+    );
+  }
+
+  /**
+   * Fetch a single budget by ID
+   * @param id The budget ID
+   * @returns An Observable for the budget object
+   */
+  getBudget(id: any) {
+    return this.http.get<any>(
+      'http://localhost:5001/api/v1.0/budgets/' + id
+    );
+  }
+
+  /**
+   * Fetch reviews for a specific budget
+   * @param id The budget ID
+   * @returns An Observable for the collection of reviews
+   */
+  getReviews(id: any) {
+    return this.http.get<any>(
+      'http://localhost:5001/api/v1.0/budgets/' +
+      id + '/reviews'
+    );
+  }
+
+  /**
+   * Post a new review for a budget
+   * @param id The budget ID
+   * @param review The review object containing username, comment, and stars
+   * @returns An Observable for the response
+   */
+  postReview(id: any, review: any) {
+    let postData = new FormData();
+    postData.append("username", review.username);
+    postData.append("comment", review.comment);
+    postData.append("stars", review.stars);
+    return this.http.post<any>(
+    'http://localhost:5001/api/v1.0/budgets/' +
+    id + "/reviews", postData);
+  }
+}
+
+
+
+=== app.component.html ===
+--------------------------------------------------
+<navigation></navigation>
+<router-outlet></router-outlet>
+
+
+
+=== authButton.component.html ===
+--------------------------------------------------
+<ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+  <button
+    class="btn btn-outline-light"
+    (click)="
+      auth.logout({
+        logoutParams: {
+          returnTo: document.location.origin
+        }
+      })
+    "
+  >
+    Log out
+  </button>
+</ng-container>
+<ng-template #loggedOut>
+  <button class="btn btn-outline-light" (click)="auth.loginWithRedirect({
+    appState: { target: this.router.url }
+    })">
+    Log in
+  </button>
+</ng-template>
+
+
+
+=== authuser.component.html ===
+--------------------------------------------------
+<h3 style="margin-top:30px">
+  Current User Details
+  </h3>
+
+  <ul *ngIf="auth.user$ | async as user">
+  <li>{{ user.name }}</li>
+  <li>{{ user.email }}</li>
+  </ul>
+
+
+
+=== budget.component.html ===
+--------------------------------------------------
+<div class="container" style="margin-top: 70px">
+  @for ( budget of budget_list; track budget.username ) {
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="display-1">{{ budget.username }} of {{ budget.town }}</div>
+      <span *ngFor="let star of [].constructor(5)">
+        <img src="images/star.png" style="width: 30px; height: 30px" />
+      </span>
+    </div>
+        </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Description</h1>
+      {{ loremIpsum }}
+
+      <div>
+        <p align="center">
+          <svg height="100" width="100">
+            <g>
+              <circle
+                [style.fill]="temperatureColour"
+                cx="50"
+                cy="50"
+                r="40"
+              ></circle>
+              <text
+                x="50%"
+                y="50%"
+                font-size="1.3em"
+                text-anchor="middle"
+                stroke="#000"
+                stroke-width="1px"
+                dy=".3em"
+              >
+                {{ temperature }}
+                <tspan dy="-10">o</tspan>
+                <tspan dy="10">C</tspan>
+              </text>
+            </g>
+          </svg>
+
+          <img src="{{ weatherIconURL }}" /><br />
+          Current weather: {{ weather }}
+          </p>
+        </div>
+      </div>
+
+    <div class="col sm-6 text-center">
+      <google-map height="400px" width="400px" [options]="map_options">
+        @for (location of map_locations; track location) {
+        <map-advanced-marker
+          #markerElem="mapAdvancedMarker"
+          [position]="{ lat: location.lat, lng: location.lng }"
+        >
+        </map-advanced-marker>
+        }
+      </google-map>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 70px">
+    <div class="col-sm-12">
+      @for ( review of review_list; track review ) {
+
+      <div class="card bg-light mb-3">
+        <div class="card-header">
+          {{ review.username }}
+        </div>
+        <div class="card-body">
+          {{ review.comment }}
+        </div>
+        <div class="card-footer">Rating: {{ review.stars }}</div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+    </div>
+
+<div class="container" style="margin-top: 50px">
+  <div class="row">
+    <div class="col-sm-12">
+      <ng-container
+        *ngIf="authService.isAuthenticated$ | async; else loggedOut"
+      >
+        <h2>Please review this budget</h2>
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="form-control"
+              formControlName="username"
+              [ngClass]="{ error: isInvalid('username') }"
+            />
+        </div>
+          <div class="form-group">
+            <label for="comment"> Please leave your review below</label>
+            <textarea
+              name="comment"
+              id="comment"
+              class="form-control"
+              formControlName="comment"
+              [ngClass]="{ error: isInvalid('comment') }"
+            >
+            </textarea>
+        </div>
+          <div class="form-group">
+            <label for="stars"> Please provide a rating (5 = best) </label>
+            <select
+              name="stars"
+              id="stars"
+              class="form-control"
+              formControlName="stars"
+            >
+              <option value="1">1 star</option>
+              <option value="2">2 stars</option>
+              <option value="3">3 stars</option>
+              <option value="4">4 stars</option>
+              <option value="5">5 stars</option>
+            </select>
+      </div>
+          <span *ngIf="isIncomplete()"> You must complete all fields </span>
+          <button
+            *ngIf="!isIncomplete()"
+            class="btn btn-primary"
+            type="submit"
+            style="margin-top: 20px"
+          >
+            Submit
+          </button>
+        </form>
+      </ng-container>
+      <ng-template #loggedOut>
+        <h2>Please login to review this budget</h2>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+
+=== budgets.component.html ===
+--------------------------------------------------
+<div class="container" style="margin-top: 70px">
+  <div class="row">
+    <div class="col-sm-12">
+      <div *ngFor="let budget of budget_list; trackBy: trackByFn">
+        <div
+          class="card text-white bg-primary mb-3"
+          style="cursor: pointer"
+          [routerLink]="['/budget', budget._id]"
+        >
+          <div class="card-header">
+            {{ budget.username }}
+          </div>
+        <div class="card-body">
+            This budget is based in {{ budget.town }}
+          </div>
+          <div class="card-footer">
+            Monthly Income: Â£{{ budget.monthly_income }}
+            <span *ngIf="budget.reviews?.length">
+              - {{ budget.reviews.length }} reviews
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-4">
+      <button class="btn btn-primary" (click)="previousPage()">Previous</button>
+    </div>
+    <div class="col-sm-4 text-center align-self-center">
+      Showing page {{ page }} of {{ dataService.getLastPageNumber() }}
+    </div>
+    <div class="col-sm-4 text-end">
+      <button class="btn btn-primary" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+</div>
+
+
+
+=== Google Maps Script.html ===
+--------------------------------------------------
+<script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      v: "weekly",
+      key: "YOUR_API_KEY"
+    });
+  </script>
+
+
+=== grid.component.html ===
+--------------------------------------------------
+<div style="margin-top: 70px">
+  <ag-grid-angular
+  class="ag-theme-quartz"
+  style="height: 500px"
+  theme="legacy"
+  [pagination]="pagination"
+  [paginationPageSize]="paginationPageSize"
+  [paginationPageSizeSelector]="paginationPageSizeSelector"
+  [paginationAutoPageSize]="paginationAutoPageSize"
+  [rowData]="data"
+  [columnDefs]="headings" />
+</div> 
+
+
+=== home.component.html ===
+--------------------------------------------------
+<div class="container" style="margin-top: 70px">
+  <div class="row">
+    <div class="col">
+      <h1>Welcome to Budget Directory</h1>
+      <p>Manage and track your budgets with our comprehensive budget management system.</p>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Budget Cards View</h5>
+              <p class="card-text">View your budgets in a card format with pagination.</p>
+              <a [routerLink]="['/budgets']" class="btn btn-primary">View Budgets</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Budget Grid View</h5>
+              <p class="card-text">View your budgets in an interactive grid with filtering and sorting.</p>
+              <a [routerLink]="['/grid']" class="btn btn-primary">View Grid</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+=== index.html ===
+--------------------------------------------------
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+      <title>Budget Directory FE</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+  <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      v: "weekly",
+      key: "AIzaSyDS8S2P4fAXoOGPbYw7BE0F9YCVlE6fk3Y"
+    });
+  </script>
+</body>
+</html>
+
+
+
+=== nav.component.html ===
+--------------------------------------------------
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/']">Budget Directory</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/budgets']">Budget Cards View</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/grid']">Budget Grid View</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/test']">Test</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <auth-button></auth-button>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+=== testWS.component.html ===
+--------------------------------------------------
+<div style="margin-top: 70px">
+
+    <h1>Test Report</h1>
+    
+    <ul>
+    @for (report of test_output; track report) {
+        <li>{{ report }}</li>
+    }
+    </ul>
+
+</div>
+
+
+=== app.component.css ===
+--------------------------------------------------
+
+
+
+=== budget.component.css ===
+--------------------------------------------------
+.error { background-color: #fff0f0 }
+
+
+
+=== budgets.component.css ===
+--------------------------------------------------
+
+
+
+=== grid.component.css ===
+--------------------------------------------------
+.ag-theme-quartz {
+  --ag-foreground-color: rgb(51, 2, 54);
+  --ag-background-color: rgb(249, 245, 227);
+  --ag-header-foreground-color: rgb(106, 216, 22);
+  --ag-header-background-color: rgb(209, 64, 129);
+  --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+  --ag-header-column-resize-handle-color: rgb(126, 46, 132);
+  --ag-font-size: 17px;
+  --ag-font-family: monospace;
+}
+
+
+=== home.component.css ===
+--------------------------------------------------
+
+
+
+=== styles.css ===
+--------------------------------------------------
+/* You can add global styles to this file, and also import other style files */
+
+
+
+=== budgets.json ===
+--------------------------------------------------
+[
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a0" },
+    "username": "User 12",
+    "town": "Belfast",
+    "monthly_income": 3200,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 1800,
+      "progress": 36
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.596216622953655, -5.998520663364854]
+    },
+    "reviews": [
+      {
+        "username": "Someone",
+        "comment": "This is bad",
+        "stars": "1"
+      },
+      {
+        "_id": { "$oid": "673a69cb389d742317a0f060" },
+        "username": "nick",
+        "comment": "good",
+        "stars": "5"
+      }
+    ]
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a1" },
+    "username": "User 13",
+    "town": "Coleraine",
+    "monthly_income": 4500,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3200,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.1521443432071, -6.665589926586147]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a2" },
+    "username": "User 14",
+    "town": "Derry",
+    "monthly_income": 2800,
+    "expenses": [],
+    "savings": {
+      "goal": 3000,
+      "current": 2100,
+      "progress": 70
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.03535451101508, -7.267152210413009]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a3" },
+    "username": "User 15",
+    "town": "Ballymena",
+    "monthly_income": 1800,
+    "expenses": [],
+    "savings": {
+      "goal": 2000,
+      "current": 800,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.838718595375035, -6.259338376349555]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a4" },
+    "username": "User 16",
+    "town": "Belfast",
+    "monthly_income": 3800,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 2400,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.597917315183274, -5.888597145229977]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a5" },
+    "username": "User 17",
+    "town": "Newry",
+    "monthly_income": 2200,
+    "expenses": [],
+    "savings": {
+      "goal": 2500,
+      "current": 1200,
+      "progress": 48
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.165458582521225, -6.365203964758383]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a6" },
+    "username": "User 11",
+    "town": "Omagh",
+    "monthly_income": 3500,
+    "expenses": [],
+    "savings": {
+      "goal": 7000,
+      "current": 2800,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.600919186410806, -7.28957498638554]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a7" },
+    "username": "User 19",
+    "town": "Derry",
+    "monthly_income": 5200,
+    "expenses": [],
+    "savings": {
+      "goal": 10000,
+      "current": 3800,
+      "progress": 38
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.00514901519102, -7.314921985372591]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a8" },
+    "username": "User 18",
+    "town": "Omagh",
+    "monthly_income": 4200,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3600,
+      "progress": 45
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.60580952920534, -7.255780821559348]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a9" },
+    "username": "User 20",
+    "town": "Enniskillen",
+    "monthly_income": 4800,
+    "expenses": [],
+    "savings": {
+      "goal": 12000,
+      "current": 5200,
+      "progress": 43
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.3681652508206, -7.609725173718895]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694aa" },
+    "username": "User 21",
+    "town": "Belfast",
+    "monthly_income": 3600,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 2200,
+      "progress": 37
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.56900554727976, -5.977381525261992]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ab" },
+    "username": "User 22",
+    "town": "Belfast",
+    "monthly_income": 2400,
+    "expenses": [],
+    "savings": {
+      "goal": 3000,
+      "current": 800,
+      "progress": 27
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.638733928694116, -5.880141489988833]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ac" },
+    "username": "User 24",
+    "town": "Banbridge",
+    "monthly_income": 1500,
+    "expenses": [],
+    "savings": {
+      "goal": 2000,
+      "current": 600,
+      "progress": 30
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.33956220817521, -6.281957693959794]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ad" },
+    "username": "User 23",
+    "town": "Coleraine",
+    "monthly_income": 3200,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 1800,
+      "progress": 36
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.153230193230726, -6.664966194181015]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ae" },
+    "username": "User 26",
+    "town": "Ballymena",
+    "monthly_income": 3800,
+    "expenses": [],
+    "savings": {
+      "goal": 7000,
+      "current": 2400,
+      "progress": 34
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.84428213873478, -6.302904684237045]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694af" },
+    "username": "User 27",
+    "town": "Belfast",
+    "monthly_income": 4400,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 2800,
+      "progress": 35
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.596216622953655, -5.960470214779704]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b0" },
+    "username": "User 28",
+    "town": "Lisburn",
+    "monthly_income": 3400,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 1800,
+      "progress": 30
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.50769322249515, -6.03867254605157]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b1" },
+    "username": "User 1",
+    "town": "Ballymoney",
+    "monthly_income": 1200,
+    "expenses": [],
+    "savings": {
+      "goal": 1500,
+      "current": 400,
+      "progress": 27
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.064963360364096, -6.495835215764348]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b2" },
+    "username": "User 25",
+    "town": "Derry",
+    "monthly_income": 2000,
+    "expenses": [],
+    "savings": {
+      "goal": 2500,
+      "current": 600,
+      "progress": 24
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.98342225503688, -7.31731047412057]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b3" },
+    "username": "User 4",
+    "town": "Newry",
+    "monthly_income": 3600,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 2000,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.16017947276851, -6.359670417301462]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b4" },
+    "username": "User 0",
+    "town": "Enniskillen",
+    "monthly_income": 4000,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3200,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.35327891261134, -7.6088029158094095]
+    },
+    "reviews": []
+  }
+] 
+
+
+

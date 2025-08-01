@@ -89,7 +89,7 @@
 <li><strong>Budget Directory</strong>: Browse and manage budgets with detailed information</li>
 <li><strong>AG Grid Integration</strong>: Advanced data grid with sorting, filtering, and pagination</li>
 <li><strong>Responsive Design</strong>: Bootstrap-based UI with mobile-friendly layout</li>
-<li><strong>Testing</strong>: Comprehensive unit tests for WebService functionality</li>
+<li><strong>Testing</strong>: Comprehensive WebService testing functionality</li>
 <li><strong>Navigation</strong>: Multi-page application with dedicated Grid view</li>
 </ul>
 <h2>Requirements</h2>
@@ -137,6 +137,20 @@
 <li>Data binding to budget information</li>
 <li>Savings and income data display</li>
 </ul>
+<h2>Testing</h2>
+<p>The application includes a comprehensive testing component that validates WebService functionality. To access the testing interface:</p>
+<ol>
+<li><strong>Navigate to the test page</strong>: Go to <code>http://localhost:4200/test</code> in your browser</li>
+<li><strong>View test results</strong>: The page will display results for:<ul>
+<li>Budget page fetching</li>
+<li>Pagination functionality</li>
+<li>Individual budget retrieval</li>
+<li>Review fetching</li>
+<li>Review posting</li>
+</ul>
+</li>
+</ol>
+<p>The test component automatically runs all tests when the page loads and displays PASS/FAIL results for each test case.</p>
 <h2>Backend Integration</h2>
 <p>This frontend connects to a Flask backend running on <code>http://localhost:5001</code>. Make sure the backend server is running before testing the application.</p>
 <h2>Database Setup</h2>

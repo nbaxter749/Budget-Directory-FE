@@ -7,7 +7,7 @@ A full-stack budget management application built with Angular 18.2.13, featuring
 - **Budget Directory**: Browse and manage budgets with detailed information
 - **AG Grid Integration**: Advanced data grid with sorting, filtering, and pagination
 - **Responsive Design**: Bootstrap-based UI with mobile-friendly layout
-- **Testing**: Comprehensive unit tests for WebService functionality
+- **Testing**: Comprehensive WebService testing functionality
 - **Navigation**: Multi-page application with dedicated Grid view
 
 ## Requirements
@@ -76,6 +76,20 @@ The documentation includes:
 - Data binding to budget information
 - Savings and income data display
 
+
+## Testing
+
+The application includes a comprehensive testing component that validates WebService functionality. To access the testing interface:
+
+1. **Navigate to the test page**: Go to `http://localhost:4200/test` in your browser
+2. **View test results**: The page will display results for:
+   - Budget page fetching
+   - Pagination functionality
+   - Individual budget retrieval
+   - Review fetching
+   - Review posting
+
+The test component automatically runs all tests when the page loads and displays PASS/FAIL results for each test case.
 
 ## Backend Integration
 
