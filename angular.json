@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bizFE": {
+    "Budget-Directory-FE": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "bizFE:build:production"
+              "buildTarget": "Budget-Directory-FE:build:production"
             },
             "development": {
-              "buildTarget": "bizFE:build:development"
+              "buildTarget": "Budget-Directory-FE:build:development"
             }
           },
           "defaultConfiguration": "development"
