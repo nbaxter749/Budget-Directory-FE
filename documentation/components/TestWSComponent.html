@@ -236,7 +236,15 @@ by executing various API calls and displaying the results.</p>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
+                                <a href="#testGetReviews" >testGetReviews</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#testPagesOfBudgetsAreDifferent" >testPagesOfBudgetsAreDifferent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#testPostReview" >testPostReview</a>
                             </li>
                         </ul>
                     </td>
@@ -335,8 +343,8 @@ by executing various API calls and displaying the results.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/testWS.component.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/testWS.component.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -442,6 +450,48 @@ and adding the result to the test output</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="testGetReviews"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>testGetReviews</b></span>
+                        <a href="#testGetReviews"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>testGetReviews()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/testWS.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Test the getReviews method by fetching reviews for a budget
+and adding the result to the test output</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="testPagesOfBudgetsAreDifferent"></a>
                     <span class="name">
                             <span class="modifier">Private</span>
@@ -469,6 +519,48 @@ and adding the result to the test output</p>
             <tr>
                 <td class="col-md-4">
                         <div class="io-description"><p>Test pagination by comparing pages 1 and 2
+and adding the result to the test output</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testPostReview"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>testPostReview</b></span>
+                        <a href="#testPostReview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>testPostReview()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/testWS.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Test the postReview method by adding a new review
 and adding the result to the test output</p>
 </div>
 
@@ -687,12 +779,54 @@ export class TestWSComponent implements OnInit {
     }
 
     /**
+     * Test the getReviews method by fetching reviews for a budget
+     * and adding the result to the test output
+     */
+    private testGetReviews() {
+        this.webService.getReviews(&#x27;67282e7643ddadda742694b4&#x27;)
+            .subscribe( (response) &#x3D;&gt; {
+                if (Array.isArray(response))
+                    this.test_output.push(&quot;Fetch reviews of budget... PASS&quot;);
+                else
+                    this.test_output.push(&quot;Fetch reviews of budget... FAIL&quot;);
+            })
+    }
+
+    /**
+     * Test the postReview method by adding a new review
+     * and adding the result to the test output
+     */
+    private testPostReview() {
+        let test_review &#x3D; {
+            &quot;username&quot; : &quot;Test User&quot;,
+            &quot;comment&quot; : &quot;Test Comment&quot;,
+            &quot;stars&quot; : 5
+        };
+        this.webService.getReviews(&#x27;67282e7643ddadda742694b4&#x27;)
+            .subscribe( (response) &#x3D;&gt; {
+                let numReviews &#x3D; response.length;
+                this.webService.postReview(&#x27;67282e7643ddadda742694b4&#x27;, test_review)
+                    .subscribe( (response) &#x3D;&gt; {
+                this.webService.getReviews(&#x27;67282e7643ddadda742694b4&#x27;)
+                    .subscribe( (response) &#x3D;&gt; {
+                        if (response.length &#x3D;&#x3D; numReviews + 1)
+                            this.test_output.push(&quot;Post review... PASS&quot;);
+                        else
+                            this.test_output.push(&quot;Post review... FAIL&quot;);
+                    })
+                })
+        })
+    }
+
+    /**
      * Initialize the component by running all test methods
      */
     ngOnInit() {
         this.testBudgetsFetched();
         this.testPagesOfBudgetsAreDifferent();
         this.testGetBudget();
+        this.testGetReviews();
+        this.testPostReview();
     }
 }
 </code></pre>
