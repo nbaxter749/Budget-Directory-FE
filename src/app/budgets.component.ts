@@ -1,43 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { DataService } from './data.service';
 import { WebService } from './web.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'budgets',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  providers: [WebService],
-  templateUrl: './budgets.component.html'
+  imports: [RouterOutlet, RouterModule, CommonModule],
+  providers: [DataService, WebService],
+  templateUrl: './budgets.component.html',
+  styleUrls: ['./budgets.component.css'],
 })
-export class BudgetsComponent implements OnInit {
-
-  budgets: any = [];
+export class BudgetsComponent {
+  budget_list: any = [];
   page: number = 1;
 
-  constructor(private webService: WebService) {}
+  constructor(public dataService: DataService, private webService: WebService) {}
 
   ngOnInit() {
-    this.loadBudgets();
-  }
-
-  loadBudgets() {
-    this.webService.getBudgetsPage(this.page)
-      .subscribe((response) => {
-        this.budgets = response;
-      });
+    if (sessionStorage['page']) {
+      this.page = Number(sessionStorage['page']);
+    }
+    this.webService.getBudgetsPage(this.page).subscribe((response) => {
+      this.budget_list = response;
+    });
   }
 
   previousPage() {
     if (this.page > 1) {
-      this.page--;
-      this.loadBudgets();
+      this.page = this.page - 1;
+      sessionStorage['page'] = this.page;
+      this.webService.getBudgetsPage(this.page).subscribe((response) => {
+        this.budget_list = response;
+      });
     }
   }
 
   nextPage() {
-    this.page++;
-    this.loadBudgets();
+    if (this.page < this.dataService.getLastPageNumber()) {
+      this.page = this.page + 1;
+      sessionStorage['page'] = this.page;
+      this.webService.getBudgetsPage(this.page).subscribe((response) => {
+        this.budget_list = response;
+      });
+    }
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item._id?.$oid || index;
   }
 }
 

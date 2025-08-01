@@ -1,72 +1,139 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { WebService } from './web.service';
+import { RouterOutlet, ActivatedRoute } from '@angular/router';
+import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
+import { WebService } from './web.service';
 
 @Component({
   selector: 'budget',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, GoogleMapsModule],
-  providers: [WebService],
+  imports: [RouterOutlet, CommonModule, GoogleMapsModule, ReactiveFormsModule],
+  providers: [DataService, WebService],
   templateUrl: './budget.component.html',
-  styleUrls: ['./budget.component.css']
+  styleUrls: ['./budget.component.css'],
 })
 export class BudgetComponent implements OnInit {
-
-  budget: any = {};
-  reviews: any = [];
-  newReview: any = { username: '', comment: '', stars: 5 };
-  
-  // Google Maps properties
-  center: google.maps.LatLngLiteral = { lat: 54.5, lng: -6.5 };
-  zoom = 8;
-  markerPosition: google.maps.LatLngLiteral | null = null;
+  budget_list: any[] = [];
+  budget: any;
+  budget_lat: any;
+  budget_lng: any;
+  map_options: google.maps.MapOptions = {};
+  map_locations: any[] = [];
+  loremIpsum: any;
+  temperature: any;
+  weather: any;
+  weatherIcon: any;
+  weatherIconURL: any;
+  temperatureColour: any;
+  reviewForm: any;
+  review_list: any;
 
   constructor(
-    private route: ActivatedRoute, 
-    private webService: WebService,
-    public auth: AuthService
+    public dataService: DataService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
+    private webService: WebService
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const budgetId = params['id'];
-      this.loadBudget(budgetId);
-      this.loadReviews(budgetId);
+    this.reviewForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      comment: ['', Validators.required],
+      stars: 5
     });
-  }
+    this.webService
+      .getBudget(this.route.snapshot.paramMap.get('id'))
+      .subscribe((response: any) => {
+        this.budget_list = [response];
 
-  loadBudget(budgetId: string) {
-    this.webService.getBudget(budgetId).subscribe((response) => {
-      this.budget = response;
-      this.updateMapLocation();
-    });
-  }
+        this.budget_lat = this.budget_list[0].location.coordinates[0];
+        this.budget_lng = this.budget_list[0].location.coordinates[1];
 
-  loadReviews(budgetId: string) {
-    this.webService.getReviews(budgetId).subscribe((response) => {
-      this.reviews = response;
-    });
-  }
+          this.map_locations.push({
+            lat: this.budget_lat,
+            lng: this.budget_lng,
+          });
 
-  submitReview() {
-    const budgetId = this.route.snapshot.params['id'];
-    this.webService.postReview(budgetId, this.newReview).subscribe(() => {
-      this.loadReviews(budgetId);
-      this.newReview = { username: '', comment: '', stars: 5 };
-    });
-  }
+          this.map_options = {
+            mapId: 'DEMO_MAP_ID',
+            center: {
+              lat: this.budget_lat,
+              lng: this.budget_lng,
+            },
+            zoom: 13,
+          };
 
-  updateMapLocation() {
-    if (this.budget.location && this.budget.location.coordinates) {
-      const [lat, lng] = this.budget.location.coordinates; // Correct order: [latitude, longitude]
-      this.center = { lat, lng };
-      this.markerPosition = { lat, lng };
-      this.zoom = 12;
+          this.dataService.getLoremIpsum(1).subscribe((response: any) => {
+            this.loremIpsum = response.text.slice(0, 400);
+          });
+
+          this.dataService
+            .getCurrentWeather(this.budget_lat, this.budget_lng)
+            .subscribe((response: any) => {
+              const weatherResponse = response['weather'][0]['description'];
+              this.temperature = Math.round(response['main']['temp']);
+              this.weather =
+                weatherResponse[0].toUpperCase() + weatherResponse.slice(1);
+              this.weatherIcon = response['weather'][0]['icon'];
+              this.weatherIconURL =
+                'https://openweathermap.org/img/wn/' + this.weatherIcon + '@4x.png';
+              this.temperatureColour = this.dataService.getTemperatureColour(
+                this.temperature
+              );
+            });
+
+        });
+
+        this.webService.getReviews(
+          this.route.snapshot.paramMap.get('id'))
+          .subscribe( (response) => {
+          this.review_list = response;
+          });
     }
+
+  onSubmit() {
+    this.webService.postReview(
+      this.route.snapshot.paramMap.get('id'),
+      this.reviewForm.value)
+      .subscribe( (response) => {
+      this.reviewForm.reset();
+
+      this.webService.getReviews(
+        this.route.snapshot.paramMap.get('id'))
+        .subscribe( (response) => {
+        this.review_list = response;
+        });
+        
+      });
+  }
+
+  isInvalid(control: any) {
+    return (
+      this.reviewForm.controls[control].invalid &&
+      this.reviewForm.controls[control].touched
+    );
+  }
+
+  isUntouched() {
+    return (
+      this.reviewForm.controls.username.pristine ||
+      this.reviewForm.controls.comment.pristine
+    );
+  }
+
+  isIncomplete() {
+    return (
+      this.isInvalid('username') ||
+      this.isInvalid('comment') ||
+      this.isUntouched()
+    );
+  }
+
+  trackByFn(index: number, item: any): any {
+    return item._id?.$oid || index;
   }
 }
