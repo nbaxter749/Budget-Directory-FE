@@ -82,11 +82,53 @@ export class TestWSComponent implements OnInit {
     }
 
     /**
+     * Test the getReviews method by fetching reviews for a budget
+     * and adding the result to the test output
+     */
+    private testGetReviews() {
+        this.webService.getReviews('67282e7643ddadda742694b4')
+            .subscribe( (response) => {
+                if (Array.isArray(response))
+                    this.test_output.push("Fetch reviews of budget... PASS");
+                else
+                    this.test_output.push("Fetch reviews of budget... FAIL");
+            })
+    }
+
+    /**
+     * Test the postReview method by adding a new review
+     * and adding the result to the test output
+     */
+    private testPostReview() {
+        let test_review = {
+            "username" : "Test User",
+            "comment" : "Test Comment",
+            "stars" : 5
+        };
+        this.webService.getReviews('67282e7643ddadda742694b4')
+            .subscribe( (response) => {
+                let numReviews = response.length;
+                this.webService.postReview('67282e7643ddadda742694b4', test_review)
+                    .subscribe( (response) => {
+                this.webService.getReviews('67282e7643ddadda742694b4')
+                    .subscribe( (response) => {
+                        if (response.length == numReviews + 1)
+                            this.test_output.push("Post review... PASS");
+                        else
+                            this.test_output.push("Post review... FAIL");
+                    })
+                })
+        })
+    }
+
+    /**
      * Initialize the component by running all test methods
      */
     ngOnInit() {
         this.testBudgetsFetched();
         this.testPagesOfBudgetsAreDifferent();
         this.testGetBudget();
+        this.testGetReviews();
+        this.testPostReview();
     }
 }
