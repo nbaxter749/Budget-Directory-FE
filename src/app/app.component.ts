@@ -4,6 +4,10 @@ import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './nav.component';
 import { CommonModule } from '@angular/common';
 
+/**
+ * The main application component that serves as the root
+ * of the Budget Directory application.
+ */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,5 +16,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Budget Directory';
+  /**
+   * The title of the application
+   */
+  title = 'Budget Directory FE';
 }

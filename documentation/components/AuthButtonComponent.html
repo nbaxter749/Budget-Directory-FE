@@ -120,6 +120,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The AuthButton Component provides authentication functionality
+with login and logout buttons for the Budget Directory application.</p>
+
+    </p>
 
 
 
@@ -232,12 +240,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/authButton.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/authButton.component.ts:20</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the AuthButton Component</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -246,6 +256,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -260,6 +271,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Injecting the Document for DOM access</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>auth</td>
@@ -272,6 +287,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Injecting the AuthService for authentication functionality</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -284,6 +303,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Injecting the Router for navigation</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -324,10 +347,15 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/authButton.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/authButton.component.ts:28</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Injecting the AuthService for authentication functionality</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -361,10 +389,15 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/authButton.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/authButton.component.ts:27</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Injecting the Document for DOM access</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -388,10 +421,15 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/authButton.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/authButton.component.ts:29</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Injecting the Router for navigation</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -408,7 +446,10 @@ import { AsyncPipe } from &#x27;@angular/common&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
-
+/**
+ * The AuthButton Component provides authentication functionality
+ * with login and logout buttons for the Budget Directory application.
+ */
 @Component({
   selector: &#x27;auth-button&#x27;,
   templateUrl: &#x27;authbutton.component.html&#x27;,
@@ -418,9 +459,15 @@ import { Router } from &#x27;@angular/router&#x27;;
 })
 
 export class AuthButtonComponent {
-constructor(@Inject(DOCUMENT) public document: Document,
-public auth: AuthService,
-public router: Router) {}
+  /**
+   * The constructor for the AuthButton Component
+   * @param document Injecting the Document for DOM access
+   * @param auth Injecting the AuthService for authentication functionality
+   * @param router Injecting the Router for navigation
+   */
+  constructor(@Inject(DOCUMENT) public document: Document,
+  public auth: AuthService,
+  public router: Router) {}
 }
 </code></pre>
     </div>

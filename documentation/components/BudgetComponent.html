@@ -124,6 +124,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The Budget Component displays detailed information about a specific budget
+including location data, weather information, and user reviews.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -315,7 +323,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/budget.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/budget.component.ts:91</a></div>
                             </td>
                         </tr>
 
@@ -453,19 +461,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="136"
-                                    class="link-to-prism">src/app/budget.component.ts:136</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="216"
+                                    class="link-to-prism">src/app/budget.component.ts:216</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Check if the review form is incomplete</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>True if any required field is invalid or untouched</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -490,14 +504,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="122"
-                                    class="link-to-prism">src/app/budget.component.ts:122</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/budget.component.ts:194</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Check if a form control is invalid and has been touched</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -508,6 +524,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -522,6 +539,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The name of the form control to check</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -531,7 +552,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if the control is invalid and has been touched</p>
+
                             </div>
                 </td>
             </tr>
@@ -557,19 +579,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="129"
-                                    class="link-to-prism">src/app/budget.component.ts:129</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/budget.component.ts:205</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Check if form controls are untouched</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>True if username or comment controls are pristine</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -594,14 +622,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/budget.component.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/budget.component.ts:113</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialize the component by setting up the review form,
+loading budget data, and fetching related information</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -631,14 +662,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="106"
-                                    class="link-to-prism">src/app/budget.component.ts:106</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/budget.component.ts:173</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Submit a new review for the current budget
+Posts the review data and refreshes the reviews list</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -668,8 +702,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="150"
-                                    class="link-to-prism">src/app/budget.component.ts:150</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="230"
+                                    class="link-to-prism">src/app/budget.component.ts:230</a></div>
                         </td>
                     </tr>
 
@@ -765,7 +799,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/budget.component.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/budget.component.ts:105</a></div>
                         </td>
                     </tr>
 
@@ -796,10 +830,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/budget.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/budget.component.ts:31</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The current budget object being displayed</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -822,10 +862,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/budget.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/budget.component.ts:36</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The latitude coordinate for the budget location</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -853,10 +899,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/budget.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/budget.component.ts:26</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array containing the budget data for display</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -879,10 +931,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/budget.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/budget.component.ts:41</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The longitude coordinate for the budget location</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -906,7 +964,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/budget.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/budget.component.ts:102</a></div>
                         </td>
                     </tr>
 
@@ -937,10 +995,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/budget.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/budget.component.ts:56</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lorem Ipsum text for the budget description</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -968,10 +1032,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/budget.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/budget.component.ts:51</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array of location coordinates for the map markers</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -999,10 +1069,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/budget.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/budget.component.ts:46</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Configuration options for the Google Maps component</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1025,10 +1101,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/budget.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/budget.component.ts:91</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array containing the reviews for the current budget</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1051,10 +1133,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/budget.component.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/budget.component.ts:86</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Form group for the review submission form</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1077,10 +1165,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/budget.component.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/budget.component.ts:61</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current temperature value</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1103,10 +1197,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/budget.component.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/budget.component.ts:81</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Color representation of the temperature</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1129,10 +1229,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/budget.component.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/budget.component.ts:66</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current weather description</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1155,10 +1261,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/budget.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/budget.component.ts:71</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Weather icon identifier</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1181,10 +1293,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/budget.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/budget.component.ts:76</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>URL for the weather icon image</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1203,6 +1321,10 @@ import { ReactiveFormsModule, FormBuilder, Validators } from &#x27;@angular/form
 import { AuthService } from &#x27;@auth0/auth0-angular&#x27;;
 import { WebService } from &#x27;./web.service&#x27;;
 
+/**
+ * The Budget Component displays detailed information about a specific budget
+ * including location data, weather information, and user reviews.
+ */
 @Component({
   selector: &#x27;budget&#x27;,
   standalone: true,
@@ -1212,19 +1334,74 @@ import { WebService } from &#x27;./web.service&#x27;;
   styleUrls: [&#x27;./budget.component.css&#x27;],
 })
 export class BudgetComponent implements OnInit {
+  /**
+   * Array containing the budget data for display
+   */
   budget_list: any[] &#x3D; [];
+
+  /**
+   * The current budget object being displayed
+   */
   budget: any;
+
+  /**
+   * The latitude coordinate for the budget location
+   */
   budget_lat: any;
+
+  /**
+   * The longitude coordinate for the budget location
+   */
   budget_lng: any;
+
+  /**
+   * Configuration options for the Google Maps component
+   */
   map_options: google.maps.MapOptions &#x3D; {};
+
+  /**
+   * Array of location coordinates for the map markers
+   */
   map_locations: any[] &#x3D; [];
+
+  /**
+   * Lorem Ipsum text for the budget description
+   */
   loremIpsum: any;
+
+  /**
+   * Current temperature value
+   */
   temperature: any;
+
+  /**
+   * Current weather description
+   */
   weather: any;
+
+  /**
+   * Weather icon identifier
+   */
   weatherIcon: any;
+
+  /**
+   * URL for the weather icon image
+   */
   weatherIconURL: any;
+
+  /**
+   * Color representation of the temperature
+   */
   temperatureColour: any;
+
+  /**
+   * Form group for the review submission form
+   */
   reviewForm: any;
+
+  /**
+   * Array containing the reviews for the current budget
+   */
   review_list: any;
 
   /**
@@ -1243,6 +1420,10 @@ export class BudgetComponent implements OnInit {
     private webService: WebService
   ) {}
 
+  /**
+   * Initialize the component by setting up the review form,
+   * loading budget data, and fetching related information
+   */
   ngOnInit() {
     this.reviewForm &#x3D; this.formBuilder.group({
       username: [&#x27;&#x27;, Validators.required],
@@ -1299,6 +1480,10 @@ export class BudgetComponent implements OnInit {
           });
     }
 
+  /**
+   * Submit a new review for the current budget
+   * Posts the review data and refreshes the reviews list
+   */
   onSubmit() {
     this.webService.postReview(
       this.route.snapshot.paramMap.get(&#x27;id&#x27;),
@@ -1315,6 +1500,11 @@ export class BudgetComponent implements OnInit {
       });
   }
 
+  /**
+   * Check if a form control is invalid and has been touched
+   * @param control The name of the form control to check
+   * @returns True if the control is invalid and has been touched
+   */
   isInvalid(control: any) {
     return (
       this.reviewForm.controls[control].invalid &amp;&amp;
@@ -1322,6 +1512,10 @@ export class BudgetComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if form controls are untouched
+   * @returns True if username or comment controls are pristine
+   */
   isUntouched() {
     return (
       this.reviewForm.controls.username.pristine ||
@@ -1329,6 +1523,10 @@ export class BudgetComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if the review form is incomplete
+   * @returns True if any required field is invalid or untouched
+   */
   isIncomplete() {
     return (
       this.isInvalid(&#x27;username&#x27;) ||

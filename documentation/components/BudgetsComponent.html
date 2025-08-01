@@ -124,6 +124,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The Budgets Component displays a paginated list of budget cards
+with navigation controls for browsing through the budget directory.</p>
+
+    </p>
 
 
 
@@ -262,7 +270,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/budgets.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/budgets.component.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -352,14 +360,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/budgets.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/budgets.component.ts:68</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Navigate to the next page of budgets
+Updates the page number and loads the corresponding data</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -389,14 +400,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/budgets.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/budgets.component.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialize the component by loading the first page of budgets
+and restoring the page number from session storage if available</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -426,14 +440,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/budgets.component.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/budgets.component.ts:54</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Navigate to the previous page of budgets
+Updates the page number and loads the corresponding data</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -463,8 +480,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">src/app/budgets.component.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/budgets.component.ts:84</a></div>
                         </td>
                     </tr>
 
@@ -564,10 +581,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/budgets.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/budgets.component.ts:23</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array containing the list of budgets for the current page</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -591,7 +614,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/budgets.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/budgets.component.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -627,10 +650,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/budgets.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/budgets.component.ts:28</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The current page number being displayed</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -646,6 +675,10 @@ import { DataService } from &#x27;./data.service&#x27;;
 import { WebService } from &#x27;./web.service&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 
+/**
+ * The Budgets Component displays a paginated list of budget cards
+ * with navigation controls for browsing through the budget directory.
+ */
 @Component({
   selector: &#x27;budgets&#x27;,
   standalone: true,
@@ -655,7 +688,14 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
   styleUrls: [&#x27;./budgets.component.css&#x27;],
 })
 export class BudgetsComponent {
+  /**
+   * Array containing the list of budgets for the current page
+   */
   budget_list: any &#x3D; [];
+
+  /**
+   * The current page number being displayed
+   */
   page: number &#x3D; 1;
 
   /**
@@ -665,6 +705,10 @@ export class BudgetsComponent {
    */
   constructor(public dataService: DataService, private webService: WebService) {}
 
+  /**
+   * Initialize the component by loading the first page of budgets
+   * and restoring the page number from session storage if available
+   */
   ngOnInit() {
     if (sessionStorage[&#x27;page&#x27;]) {
       this.page &#x3D; Number(sessionStorage[&#x27;page&#x27;]);
@@ -674,6 +718,10 @@ export class BudgetsComponent {
     });
   }
 
+  /**
+   * Navigate to the previous page of budgets
+   * Updates the page number and loads the corresponding data
+   */
   previousPage() {
     if (this.page &gt; 1) {
       this.page &#x3D; this.page - 1;
@@ -684,6 +732,10 @@ export class BudgetsComponent {
     }
   }
 
+  /**
+   * Navigate to the next page of budgets
+   * Updates the page number and loads the corresponding data
+   */
   nextPage() {
     if (this.page &lt; this.dataService.getLastPageNumber()) {
       this.page &#x3D; this.page + 1;

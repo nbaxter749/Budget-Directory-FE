@@ -4,6 +4,10 @@ import { DataService } from './data.service';
 import { WebService } from './web.service';
 import { CommonModule } from '@angular/common';
 
+/**
+ * The Budgets Component displays a paginated list of budget cards
+ * with navigation controls for browsing through the budget directory.
+ */
 @Component({
   selector: 'budgets',
   standalone: true,
@@ -13,7 +17,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./budgets.component.css'],
 })
 export class BudgetsComponent {
+  /**
+   * Array containing the list of budgets for the current page
+   */
   budget_list: any = [];
+
+  /**
+   * The current page number being displayed
+   */
   page: number = 1;
 
   /**
@@ -23,6 +34,10 @@ export class BudgetsComponent {
    */
   constructor(public dataService: DataService, private webService: WebService) {}
 
+  /**
+   * Initialize the component by loading the first page of budgets
+   * and restoring the page number from session storage if available
+   */
   ngOnInit() {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']);
@@ -32,6 +47,10 @@ export class BudgetsComponent {
     });
   }
 
+  /**
+   * Navigate to the previous page of budgets
+   * Updates the page number and loads the corresponding data
+   */
   previousPage() {
     if (this.page > 1) {
       this.page = this.page - 1;
@@ -42,6 +61,10 @@ export class BudgetsComponent {
     }
   }
 
+  /**
+   * Navigate to the next page of budgets
+   * Updates the page number and loads the corresponding data
+   */
   nextPage() {
     if (this.page < this.dataService.getLastPageNumber()) {
       this.page = this.page + 1;

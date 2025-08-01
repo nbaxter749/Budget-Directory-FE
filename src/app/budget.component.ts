@@ -7,6 +7,10 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { WebService } from './web.service';
 
+/**
+ * The Budget Component displays detailed information about a specific budget
+ * including location data, weather information, and user reviews.
+ */
 @Component({
   selector: 'budget',
   standalone: true,
@@ -16,19 +20,74 @@ import { WebService } from './web.service';
   styleUrls: ['./budget.component.css'],
 })
 export class BudgetComponent implements OnInit {
+  /**
+   * Array containing the budget data for display
+   */
   budget_list: any[] = [];
+
+  /**
+   * The current budget object being displayed
+   */
   budget: any;
+
+  /**
+   * The latitude coordinate for the budget location
+   */
   budget_lat: any;
+
+  /**
+   * The longitude coordinate for the budget location
+   */
   budget_lng: any;
+
+  /**
+   * Configuration options for the Google Maps component
+   */
   map_options: google.maps.MapOptions = {};
+
+  /**
+   * Array of location coordinates for the map markers
+   */
   map_locations: any[] = [];
+
+  /**
+   * Lorem Ipsum text for the budget description
+   */
   loremIpsum: any;
+
+  /**
+   * Current temperature value
+   */
   temperature: any;
+
+  /**
+   * Current weather description
+   */
   weather: any;
+
+  /**
+   * Weather icon identifier
+   */
   weatherIcon: any;
+
+  /**
+   * URL for the weather icon image
+   */
   weatherIconURL: any;
+
+  /**
+   * Color representation of the temperature
+   */
   temperatureColour: any;
+
+  /**
+   * Form group for the review submission form
+   */
   reviewForm: any;
+
+  /**
+   * Array containing the reviews for the current budget
+   */
   review_list: any;
 
   /**
@@ -47,6 +106,10 @@ export class BudgetComponent implements OnInit {
     private webService: WebService
   ) {}
 
+  /**
+   * Initialize the component by setting up the review form,
+   * loading budget data, and fetching related information
+   */
   ngOnInit() {
     this.reviewForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -103,6 +166,10 @@ export class BudgetComponent implements OnInit {
           });
     }
 
+  /**
+   * Submit a new review for the current budget
+   * Posts the review data and refreshes the reviews list
+   */
   onSubmit() {
     this.webService.postReview(
       this.route.snapshot.paramMap.get('id'),
@@ -119,6 +186,11 @@ export class BudgetComponent implements OnInit {
       });
   }
 
+  /**
+   * Check if a form control is invalid and has been touched
+   * @param control The name of the form control to check
+   * @returns True if the control is invalid and has been touched
+   */
   isInvalid(control: any) {
     return (
       this.reviewForm.controls[control].invalid &&
@@ -126,6 +198,10 @@ export class BudgetComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if form controls are untouched
+   * @returns True if username or comment controls are pristine
+   */
   isUntouched() {
     return (
       this.reviewForm.controls.username.pristine ||
@@ -133,6 +209,10 @@ export class BudgetComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if the review form is incomplete
+   * @returns True if any required field is invalid or untouched
+   */
   isIncomplete() {
     return (
       this.isInvalid('username') ||

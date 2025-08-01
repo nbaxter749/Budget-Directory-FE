@@ -120,6 +120,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The main application component that serves as the root
+of the Budget Directory application.</p>
+
+    </p>
 
 
 
@@ -241,15 +249,21 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;Budget Directory&#x27;</code>
+                        <i>Default value : </i><code>&#x27;Budget Directory FE&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/app.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/app.component.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The title of the application</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -265,6 +279,10 @@ import { RouterOutlet } from &#x27;@angular/router&#x27;;
 import { NavComponent } from &#x27;./nav.component&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 
+/**
+ * The main application component that serves as the root
+ * of the Budget Directory application.
+ */
 @Component({
   selector: &#x27;app-root&#x27;,
   standalone: true,
@@ -273,7 +291,10 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
   styleUrl: &#x27;./app.component.css&#x27;
 })
 export class AppComponent {
-  title &#x3D; &#x27;Budget Directory&#x27;;
+  /**
+   * The title of the application
+   */
+  title &#x3D; &#x27;Budget Directory FE&#x27;;
 }
 </code></pre>
     </div>

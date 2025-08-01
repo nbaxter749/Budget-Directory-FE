@@ -3,10 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+/**
+ * The Data Service provides access to budget data and external APIs
+ * including Lorem Ipsum and weather information.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  /**
+   * The default page size for pagination
+   */
   pageSize: number = 3;
 
   /**
@@ -93,6 +100,9 @@ export class DataService {
     else return '#ff0000';
   }
 
+  /**
+   * Populate reviews for all budgets with random Lorem Ipsum text
+   */
   populateReviews() {
     let loremIpsum = '';
     this.getLoremIpsum(1).subscribe((response: any) => {

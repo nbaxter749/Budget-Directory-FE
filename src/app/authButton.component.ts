@@ -5,7 +5,10 @@ import { AsyncPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-
+/**
+ * The AuthButton Component provides authentication functionality
+ * with login and logout buttons for the Budget Directory application.
+ */
 @Component({
   selector: 'auth-button',
   templateUrl: 'authbutton.component.html',
@@ -15,7 +18,13 @@ import { Router } from '@angular/router';
 })
 
 export class AuthButtonComponent {
-constructor(@Inject(DOCUMENT) public document: Document,
-public auth: AuthService,
-public router: Router) {}
+  /**
+   * The constructor for the AuthButton Component
+   * @param document Injecting the Document for DOM access
+   * @param auth Injecting the AuthService for authentication functionality
+   * @param router Injecting the Router for navigation
+   */
+  constructor(@Inject(DOCUMENT) public document: Document,
+  public auth: AuthService,
+  public router: Router) {}
 }

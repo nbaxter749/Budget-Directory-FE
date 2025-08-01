@@ -119,6 +119,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The Data Service provides access to budget data and external APIs
+including Lorem Ipsum and weather information.</p>
+
+            </p>
 
 
 
@@ -196,7 +204,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/data.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/data.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -266,8 +274,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">src/app/data.service.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/data.service.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -341,8 +349,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/app/data.service.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/data.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -416,8 +424,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">src/app/data.service.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/data.service.ts:78</a></div>
                         </td>
                     </tr>
 
@@ -507,8 +515,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/app/data.service.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/data.service.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -550,8 +558,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="57"
-                                    class="link-to-prism">src/app/data.service.ts:57</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/data.service.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -625,8 +633,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="88"
-                                    class="link-to-prism">src/app/data.service.ts:88</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/data.service.ts:95</a></div>
                         </td>
                     </tr>
 
@@ -700,14 +708,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">src/app/data.service.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/data.service.ts:106</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Populate reviews for all budgets with random Lorem Ipsum text</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -737,8 +747,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="127"
-                                    class="link-to-prism">src/app/data.service.ts:127</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/data.service.ts:137</a></div>
                         </td>
                     </tr>
 
@@ -837,10 +847,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/data.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/data.service.ts:17</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The default page size for pagination</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -855,10 +871,17 @@ import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
+/**
+ * The Data Service provides access to budget data and external APIs
+ * including Lorem Ipsum and weather information.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class DataService {
+  /**
+   * The default page size for pagination
+   */
   pageSize: number &#x3D; 3;
 
   /**
@@ -945,6 +968,9 @@ export class DataService {
     else return &#x27;#ff0000&#x27;;
   }
 
+  /**
+   * Populate reviews for all budgets with random Lorem Ipsum text
+   */
   populateReviews() {
     let loremIpsum &#x3D; &#x27;&#x27;;
     this.getLoremIpsum(1).subscribe((response: any) &#x3D;&gt; {

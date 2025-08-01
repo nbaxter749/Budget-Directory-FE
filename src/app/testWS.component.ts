@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { WebService } from './web.service';
 
+/**
+ * The TestWS Component provides testing functionality for the WebService
+ * by executing various API calls and displaying the results.
+ */
 @Component({
     selector: 'testWS',
     standalone: true,
@@ -9,16 +13,31 @@ import { WebService } from './web.service';
 })
 export class TestWSComponent implements OnInit {
 
+    /**
+     * Array containing the test output messages
+     */
     test_output: string[] = [];
+
+    /**
+     * Array containing the first page of budget data for comparison
+     */
     first_budget_list: any[] = [];
+
+    /**
+     * Array containing the second page of budget data for comparison
+     */
     second_budget_list: any[] = [];
 
-  /**
-   * The constructor for the TestWS Component
-   * @param webService Injecting the WebService for API testing
-   */
-  constructor(private webService: WebService) {}
+    /**
+     * The constructor for the TestWS Component
+     * @param webService Injecting the WebService for API testing
+     */
+    constructor(private webService: WebService) {}
 
+    /**
+     * Test the getBudgetsPage method by fetching paginated budgets
+     * and adding the result to the test output
+     */
     private testBudgetsFetched() {
         this.webService.getBudgetsPage(1)
         .subscribe( (response) => {
@@ -29,6 +48,10 @@ export class TestWSComponent implements OnInit {
         })
     }
 
+    /**
+     * Test pagination by comparing pages 1 and 2
+     * and adding the result to the test output
+     */
     private testPagesOfBudgetsAreDifferent() {
         this.webService.getBudgetsPage(1)
             .subscribe( (response) => {
@@ -44,6 +67,10 @@ export class TestWSComponent implements OnInit {
             })
     }
 
+    /**
+     * Test the getBudget method by fetching a specific budget
+     * and adding the result to the test output
+     */
     private testGetBudget() {
         this.webService.getBudget('67282e7643ddadda742694b4') // Hardcoded ID for testing
             .subscribe( (response) => {
@@ -54,6 +81,9 @@ export class TestWSComponent implements OnInit {
             })
     }
 
+    /**
+     * Initialize the component by running all test methods
+     */
     ngOnInit() {
         this.testBudgetsFetched();
         this.testPagesOfBudgetsAreDifferent();

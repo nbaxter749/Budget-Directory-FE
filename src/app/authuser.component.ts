@@ -3,6 +3,10 @@ import { AuthService } from '@auth0/auth0-angular';
 import { AsyncPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 
+/**
+ * The AuthUser Component displays current user information
+ * and authentication status for the Budget Directory application.
+ */
 @Component({
   selector: 'user-profile',
   templateUrl: 'authuser.component.html',
