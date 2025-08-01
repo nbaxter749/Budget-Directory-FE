@@ -63,10 +63,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="components/AuthUserComponent.html" data-type="entity-link" >AuthUserComponent</a>
                             </li>
                             <li class="link">
-                                <a href="components/BusinessComponent.html" data-type="entity-link" >BusinessComponent</a>
+                                <a href="components/BudgetComponent.html" data-type="entity-link" >BudgetComponent</a>
                             </li>
                             <li class="link">
-                                <a href="components/BusinessesComponent.html" data-type="entity-link" >BusinessesComponent</a>
+                                <a href="components/BudgetsComponent.html" data-type="entity-link" >BudgetsComponent</a>
                             </li>
                             <li class="link">
                                 <a href="components/GridComponent.html" data-type="entity-link" >GridComponent</a>

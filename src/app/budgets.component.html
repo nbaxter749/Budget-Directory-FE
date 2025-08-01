@@ -1,0 +1,27 @@
+<div class="container" style="margin-top: 70px">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let budget of budgets">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ budget.username }}</h5>
+          <p class="card-text">
+            <strong>Town:</strong> {{ budget.town }}<br>
+            <strong>Monthly Income:</strong> £{{ budget.monthly_income }}<br>
+            <strong>Current Savings:</strong> £{{ budget.savings?.current || 0 }}<br>
+            <strong>Savings Goal:</strong> £{{ budget.savings?.goal || 0 }}<br>
+            <strong>Progress:</strong> {{ budget.savings?.progress || 0 }}%
+          </p>
+          <a [routerLink]="['/budget', budget._id]" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <button (click)="previousPage()" class="btn btn-secondary" [disabled]="page <= 1">Previous</button>
+      <span class="mx-3">Page {{ page }}</span>
+      <button (click)="nextPage()" class="btn btn-secondary">Next</button>
+    </div>
+  </div>
+</div>

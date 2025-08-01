@@ -82,7 +82,16 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1>BizFE</h1>
+<h1>Budget Directory Frontend</h1>
+<p>A full-stack budget management application built with Angular 19, featuring AG Grid for data display, pagination, filtering, and comprehensive testing.</p>
+<h2>Features</h2>
+<ul>
+<li><strong>Budget Directory</strong>: Browse and manage budgets with detailed information</li>
+<li><strong>AG Grid Integration</strong>: Advanced data grid with sorting, filtering, and pagination</li>
+<li><strong>Responsive Design</strong>: Bootstrap-based UI with mobile-friendly layout</li>
+<li><strong>Testing</strong>: Comprehensive unit tests for WebService functionality</li>
+<li><strong>Navigation</strong>: Multi-page application with dedicated Grid view</li>
+</ul>
 <h2>Requirements</h2>
 <p>Before you begin, make sure you have the following installed on your system:</p>
 <ul>
@@ -91,23 +100,39 @@
 <li><a href="https://angular.io/cli">Angular CLI</a></li>
 </ul>
 <p>To install Angular CLI globally, run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install -g &#64;angular/cli</code></pre></div><hr>
-<p>This project was generated using <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 19.0.4.</p>
-<h2>Development server</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install -g &#64;angular/cli</code></pre></div><h2>Development server</h2>
 <p>First, install project dependencies:</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install</code></pre></div><p>To start a local development server, run:</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng serve</code></pre></div><p>Once the server is running, open your browser and navigate to <code>http://localhost:4200/</code>. The application will automatically reload whenever you modify any of the source files.</p>
-<h2>Code scaffolding</h2>
-<p>Angular CLI includes powerful code scaffolding tools. To generate a new component, run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng generate component component-name</code></pre></div><p>For a complete list of available schematics (such as <code>components</code>, <code>directives</code>, or <code>pipes</code>), run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng generate --help</code></pre></div><h2>Building</h2>
-<p>To build the project run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng build</code></pre></div><p>This will compile your project and store the build artifacts in the <code>dist/</code> directory. By default, the production build optimizes your application for performance and speed.</p>
-<h2>Running unit tests</h2>
-<p>To execute unit tests with the <a href="https://karma-runner.github.io">Karma</a> test runner, use the following command:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng test</code></pre></div><h2>Running end-to-end tests</h2>
-<p>For end-to-end (e2e) testing, run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng e2e</code></pre></div><p>Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.</p>
+<h2>Project Structure</h2>
+<h3>Key Components</h3>
+<ul>
+<li><strong>AppComponent</strong>: Main application component</li>
+<li><strong>GridComponent</strong>: AG Grid implementation with pagination and filtering</li>
+<li><strong>BudgetComponent</strong>: Individual budget details view</li>
+<li><strong>BudgetsComponent</strong>: Paginated budget cards view</li>
+<li><strong>TestWSComponent</strong>: WebService testing component</li>
+<li><strong>WebService</strong>: HTTP service for API communication</li>
+</ul>
+<h3>AG Grid Features</h3>
+<ul>
+<li>Column filtering and floating filters</li>
+<li>Pagination with configurable page sizes (10, 25, 50)</li>
+<li>Custom theming with CSS variables</li>
+<li>Data binding to budget information</li>
+<li>Savings and income data display</li>
+</ul>
+<h2>Testing</h2>
+<p>The application includes comprehensive testing:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng test</code></pre></div><p><strong>TestWSComponent</strong> provides automated testing for:</p>
+<ul>
+<li>Budget data fetching</li>
+<li>Pagination functionality</li>
+<li>Individual budget retrieval</li>
+<li>API endpoint validation</li>
+</ul>
+<h2>Backend Integration</h2>
+<p>This frontend connects to a Flask backend running on <code>http://localhost:5001</code>. Make sure the backend server is running before testing the application.</p>
 <h2>Additional Resources</h2>
 <p>For more information on using the Angular CLI, including detailed command references, visit the <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a> page.</p>
 

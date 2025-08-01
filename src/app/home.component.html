@@ -1,11 +1,31 @@
-<h1 style="margin-top:70px"></h1>
-<h1>
-  Biz Directory
-</h1>
-<p>Welcome to the Business Directory</p>
-<p>Choose your preferred view:</p>
-<ul>
-  <li><a routerLink="/businesses">Business Cards View</a> - Browse businesses in a card layout</li>
-  <li><a routerLink="/grid">Grid View</a> - View all businesses in a table format</li>
-</ul>
+<div class="container" style="margin-top: 70px">
+  <div class="row">
+    <div class="col">
+      <h1>Welcome to Budget Directory</h1>
+      <p>Manage and track your budgets with our comprehensive budget management system.</p>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Budget Cards View</h5>
+              <p class="card-text">View your budgets in a card format with pagination.</p>
+              <a [routerLink]="['/budgets']" class="btn btn-primary">View Budgets</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Budget Grid View</h5>
+              <p class="card-text">View your budgets in an interactive grid with filtering and sorting.</p>
+              <a [routerLink]="['/grid']" class="btn btn-primary">View Grid</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebService } from './web.service';
 
 @Component({
@@ -7,32 +7,32 @@ import { WebService } from './web.service';
     providers: [WebService],
     templateUrl: './testWS.component.html'
 })
-export class TestWSComponent {
+export class TestWSComponent implements OnInit {
 
     test_output: string[] = [];
-    first_business_list: any[] = [];
-    second_business_list: any[] = [];
-    
+    first_budget_list: any[] = [];
+    second_budget_list: any[] = [];
+
     constructor(private webService: WebService) {}
 
-    private testBusinessesFetched() {
-        this.webService.getBusinessesPage(1)
+    private testBudgetsFetched() {
+        this.webService.getBudgetsPage(1)
         .subscribe( (response) => {
-            if (Array.isArray(response) && response.length == 4)
-                this.test_output.push("Page of businesses fetched... PASS");
-             else 
-                this.test_output.push("Page of businesses fetched... FAIL");
-            })
-        }
+        if (Array.isArray(response) && response.length == 4)
+            this.test_output.push("Page of budgets fetched... PASS");
+        else
+            this.test_output.push("Page of budgets fetched... FAIL");
+        })
+    }
 
-    private testPagesOfBusinessesAreDifferent() {
-        this.webService.getBusinessesPage(1)
+    private testPagesOfBudgetsAreDifferent() {
+        this.webService.getBudgetsPage(1)
             .subscribe( (response) => {
-                this.first_business_list = response;
-                this.webService.getBusinessesPage(2)
+                this.first_budget_list = response;
+                this.webService.getBudgetsPage(2)
                     .subscribe( (response) => {
-                        this.second_business_list = response;
-                        if (this.first_business_list[0]["_id"] != this.second_business_list[0]["_id"])
+                        this.second_budget_list = response;
+                        if (this.first_budget_list[0]["_id"] != this.second_budget_list[0]["_id"])
                             this.test_output.push("Pages 1 and 2 are different... PASS");
                         else
                             this.test_output.push("Pages 1 and 2 are different... FAIL");
@@ -40,53 +40,19 @@ export class TestWSComponent {
             })
     }
 
-    private testGetBusiness() {
-        this.webService.getBusiness('67282e7643ddadda742694b4')
+    private testGetBudget() {
+        this.webService.getBudget('67282e7643ddadda742694b4') // Hardcoded ID for testing
             .subscribe( (response) => {
-                if (response.name == 'Biz 0')
-                    this.test_output.push("Fetch Biz 0 by ID... PASS");
+                if (response.username)
+                    this.test_output.push("Fetch budget by ID... PASS");
                 else
-                    this.test_output.push("Fetch Biz 0 by ID... FAIL");
+                    this.test_output.push("Fetch budget by ID... FAIL");
             })
     }
 
-    private testGetReviews() {
-        this.webService.getReviews('67282e7643ddadda742694b4')
-            .subscribe( (response) => {
-                if (Array.isArray(response))
-                    this.test_output.push("Fetch Reviews of Biz 0... PASS");
-                else
-                    this.test_output.push("Fetch Reviews of Biz 0... FAIL");
-            })
-    }
-
-    private testPostReview() {
-        let test_review = {
-            "username" : "Test User",
-            "comment" : "Test Comment",
-            "stars" : 5
-        };
-        this.webService.getReviews('67282e7643ddadda742694b4')
-            .subscribe( (response) => {
-                let numReviews = response.length;
-                this.webService.postReview('67282e7643ddadda742694b4', test_review)
-                    .subscribe( (response) => {
-                this.webService.getReviews('67282e7643ddadda742694b4')
-                    .subscribe( (response) => {
-                        if (response.length == numReviews + 1)
-                            this.test_output.push("Post review... PASS");
-                        else
-                            this.test_output.push("Post review... FAIL");
-                    })
-                })
-        })
-    }
-    
     ngOnInit() {
-        this.testBusinessesFetched();
-        this.testPagesOfBusinessesAreDifferent();
-        this.testGetBusiness();
-        this.testGetReviews();
-        this.testPostReview();
+        this.testBudgetsFetched();
+        this.testPagesOfBudgetsAreDifferent();
+        this.testGetBudget();
     }
 }

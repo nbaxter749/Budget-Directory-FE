@@ -8,6 +8,6 @@ import { AuthUserComponent } from "./authuser.component";
   standalone: true,
   imports: [RouterOutlet, RouterModule, AuthButtonComponent,
     AuthUserComponent],
-  templateUrl: './nav.component.html',
+  templateUrl: './nav.component.html'
 })
 export class NavComponent {}

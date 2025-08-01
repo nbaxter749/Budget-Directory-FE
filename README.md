@@ -1,4 +1,14 @@
-# BizFE
+# Budget Directory Frontend
+
+A full-stack budget management application built with Angular 19, featuring AG Grid for data display, pagination, filtering, and comprehensive testing.
+
+## Features
+
+- **Budget Directory**: Browse and manage budgets with detailed information
+- **AG Grid Integration**: Advanced data grid with sorting, filtering, and pagination
+- **Responsive Design**: Bootstrap-based UI with mobile-friendly layout
+- **Testing**: Comprehensive unit tests for WebService functionality
+- **Navigation**: Multi-page application with dedicated Grid view
 
 ## Requirements
 
@@ -13,10 +23,6 @@ To install Angular CLI globally, run:
 ```bash
 npm install -g @angular/cli
 ```
-
----
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
 
 ## Development server
 
@@ -34,47 +40,40 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Project Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Key Components
+- **AppComponent**: Main application component
+- **GridComponent**: AG Grid implementation with pagination and filtering
+- **BudgetComponent**: Individual budget details view
+- **BudgetsComponent**: Paginated budget cards view
+- **TestWSComponent**: WebService testing component
+- **WebService**: HTTP service for API communication
 
-```bash
-ng generate component component-name
-```
+### AG Grid Features
+- Column filtering and floating filters
+- Pagination with configurable page sizes (10, 25, 50)
+- Custom theming with CSS variables
+- Data binding to budget information
+- Savings and income data display
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Testing
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The application includes comprehensive testing:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+**TestWSComponent** provides automated testing for:
+- Budget data fetching
+- Pagination functionality
+- Individual budget retrieval
+- API endpoint validation
 
-For end-to-end (e2e) testing, run:
+## Backend Integration
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This frontend connects to a Flask backend running on `http://localhost:5001`. Make sure the backend server is running before testing the application.
 
 ## Additional Resources
 

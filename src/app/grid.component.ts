@@ -13,28 +13,27 @@ import { ColDef } from 'ag-grid-community';
   styleUrl: './grid.component.css'
 })
 export class GridComponent implements OnInit {
-  
-  headings: ColDef[] = [
-    { field: "name", headerName: "Name", filter: true, floatingFilter: true },
-    { field: "town", headerName: "Town", filter: true },
-    { field: "rating", headerName: "Rating", filter: true },
-    { field: "num_employees", headerName: "Workforce" },
-    { valueGetter: "data.profit[0].gross", headerName: "2022" },
-    { valueGetter: "data.profit[1].gross", headerName: "2023" },
-    { valueGetter: "data.profit[2].gross", headerName: "2024" }
-  ];
 
+  headings: ColDef[] = [
+    { field: "username", headerName: "Username", filter: true, floatingFilter: true },
+    { field: "town", headerName: "Town", filter: true },
+    { field: "monthly_income", headerName: "Monthly Income", filter: true },
+    { valueGetter: "data.savings.current", headerName: "Current Savings" },
+    { valueGetter: "data.savings.goal", headerName: "Savings Goal" },
+    { valueGetter: "data.savings.progress", headerName: "Progress %" }
+  ];
   data: any = [];
 
+  // Pagination properties
   pagination = true;
   paginationPageSize = 10;
   paginationPageSizeSelector = [10, 25, 50];
   paginationAutoPageSize = false;
 
-  constructor(private webService: WebService) {}
+  constructor(private webService: WebService) { }
 
   ngOnInit() {
-    this.webService.getBusinesses()
+    this.webService.getBudgets()
       .subscribe((response) => {
         this.data = response;
       });

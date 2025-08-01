@@ -477,7 +477,7 @@ public router: Router) {}
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">  <button    class="btn btn-outline-light"    (click)="      auth.logout({        logoutParams: {          returnTo: document.location.origin        }      })    "  >    Log out  </button></ng-container><ng-template #loggedOut>  <button class="btn btn-outline-light" (click)="auth.loginWithRedirect({    appState: { target: this.router.url }    })">    Log in  </button></ng-template></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BusinessComponent', 'selector': 'business'},{'name': 'BusinessesComponent', 'selector': 'businesses'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BudgetComponent', 'selector': 'budget'},{'name': 'BudgetsComponent', 'selector': 'budgets'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AuthButtonComponent'};
 </script>

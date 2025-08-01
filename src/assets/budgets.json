@@ -1,0 +1,371 @@
+[
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a0" },
+    "username": "User 12",
+    "town": "Belfast",
+    "monthly_income": 3200,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 1800,
+      "progress": 36
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.596216622953655, -5.998520663364854]
+    },
+    "reviews": [
+      {
+        "username": "Someone",
+        "comment": "This is bad",
+        "stars": "1"
+      },
+      {
+        "_id": { "$oid": "673a69cb389d742317a0f060" },
+        "username": "nick",
+        "comment": "good",
+        "stars": "5"
+      }
+    ]
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a1" },
+    "username": "User 13",
+    "town": "Coleraine",
+    "monthly_income": 4500,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3200,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.1521443432071, -6.665589926586147]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a2" },
+    "username": "User 14",
+    "town": "Derry",
+    "monthly_income": 2800,
+    "expenses": [],
+    "savings": {
+      "goal": 3000,
+      "current": 2100,
+      "progress": 70
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.03535451101508, -7.267152210413009]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a3" },
+    "username": "User 15",
+    "town": "Ballymena",
+    "monthly_income": 1800,
+    "expenses": [],
+    "savings": {
+      "goal": 2000,
+      "current": 800,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.838718595375035, -6.259338376349555]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a4" },
+    "username": "User 16",
+    "town": "Belfast",
+    "monthly_income": 3800,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 2400,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.597917315183274, -5.888597145229977]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a5" },
+    "username": "User 17",
+    "town": "Newry",
+    "monthly_income": 2200,
+    "expenses": [],
+    "savings": {
+      "goal": 2500,
+      "current": 1200,
+      "progress": 48
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.165458582521225, -6.365203964758383]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a6" },
+    "username": "User 11",
+    "town": "Omagh",
+    "monthly_income": 3500,
+    "expenses": [],
+    "savings": {
+      "goal": 7000,
+      "current": 2800,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.600919186410806, -7.28957498638554]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a7" },
+    "username": "User 19",
+    "town": "Derry",
+    "monthly_income": 5200,
+    "expenses": [],
+    "savings": {
+      "goal": 10000,
+      "current": 3800,
+      "progress": 38
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.00514901519102, -7.314921985372591]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a8" },
+    "username": "User 18",
+    "town": "Omagh",
+    "monthly_income": 4200,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3600,
+      "progress": 45
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.60580952920534, -7.255780821559348]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694a9" },
+    "username": "User 20",
+    "town": "Enniskillen",
+    "monthly_income": 4800,
+    "expenses": [],
+    "savings": {
+      "goal": 12000,
+      "current": 5200,
+      "progress": 43
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.3681652508206, -7.609725173718895]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694aa" },
+    "username": "User 21",
+    "town": "Belfast",
+    "monthly_income": 3600,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 2200,
+      "progress": 37
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.56900554727976, -5.977381525261992]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ab" },
+    "username": "User 22",
+    "town": "Belfast",
+    "monthly_income": 2400,
+    "expenses": [],
+    "savings": {
+      "goal": 3000,
+      "current": 800,
+      "progress": 27
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.638733928694116, -5.880141489988833]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ac" },
+    "username": "User 24",
+    "town": "Banbridge",
+    "monthly_income": 1500,
+    "expenses": [],
+    "savings": {
+      "goal": 2000,
+      "current": 600,
+      "progress": 30
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.33956220817521, -6.281957693959794]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ad" },
+    "username": "User 23",
+    "town": "Coleraine",
+    "monthly_income": 3200,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 1800,
+      "progress": 36
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.153230193230726, -6.664966194181015]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694ae" },
+    "username": "User 26",
+    "town": "Ballymena",
+    "monthly_income": 3800,
+    "expenses": [],
+    "savings": {
+      "goal": 7000,
+      "current": 2400,
+      "progress": 34
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.84428213873478, -6.302904684237045]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694af" },
+    "username": "User 27",
+    "town": "Belfast",
+    "monthly_income": 4400,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 2800,
+      "progress": 35
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.596216622953655, -5.960470214779704]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b0" },
+    "username": "User 28",
+    "town": "Lisburn",
+    "monthly_income": 3400,
+    "expenses": [],
+    "savings": {
+      "goal": 6000,
+      "current": 1800,
+      "progress": 30
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.50769322249515, -6.03867254605157]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b1" },
+    "username": "User 1",
+    "town": "Ballymoney",
+    "monthly_income": 1200,
+    "expenses": [],
+    "savings": {
+      "goal": 1500,
+      "current": 400,
+      "progress": 27
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [55.064963360364096, -6.495835215764348]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b2" },
+    "username": "User 25",
+    "town": "Derry",
+    "monthly_income": 2000,
+    "expenses": [],
+    "savings": {
+      "goal": 2500,
+      "current": 600,
+      "progress": 24
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.98342225503688, -7.31731047412057]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b3" },
+    "username": "User 4",
+    "town": "Newry",
+    "monthly_income": 3600,
+    "expenses": [],
+    "savings": {
+      "goal": 5000,
+      "current": 2000,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.16017947276851, -6.359670417301462]
+    },
+    "reviews": []
+  },
+  {
+    "_id": { "$oid": "67282e7643ddadda742694b4" },
+    "username": "User 0",
+    "town": "Enniskillen",
+    "monthly_income": 4000,
+    "expenses": [],
+    "savings": {
+      "goal": 8000,
+      "current": 3200,
+      "progress": 40
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [54.35327891261134, -7.6088029158094095]
+    },
+    "reviews": []
+  }
+] 

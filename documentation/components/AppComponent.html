@@ -138,13 +138,6 @@
 
 
 
-            <tr>
-                <td class="col-md-3">providers</td>
-                <td class="col-md-9">
-                                <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
-                                <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
-                </td>
-            </tr>
 
 
             <tr>
@@ -161,7 +154,7 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                             <code>RouterOutlet</code>
-                                <code><a href="../components/BusinessesComponent.html" target="_self" >BusinessesComponent</a></code>
+                                <code><a href="../components/BudgetsComponent.html" target="_self" >BudgetsComponent</a></code>
                                 <code><a href="../components/NavComponent.html" target="_self" >NavComponent</a></code>
                             <code>CommonModule</code>
                 </td>
@@ -218,54 +211,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(webService: <a href="../injectables/WebService.html" target="_self">WebService</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/app.component.ts:19</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>webService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -296,12 +241,12 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;My bizFE&#x27;</code>
+                        <i>Default value : </i><code>&#x27;Budget Directory&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/app.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/app.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -315,26 +260,20 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { BudgetsComponent } from &#x27;./budgets.component&#x27;;
 import { RouterOutlet } from &#x27;@angular/router&#x27;;
-import { BusinessesComponent } from &#x27;./businesses.component&#x27;;
-import { NavComponent } from &#x27;./nav.component&#x27;
-import { DataService } from &#x27;./data.service&#x27;;
+import { NavComponent } from &#x27;./nav.component&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
-import { WebService } from &#x27;./web.service&#x27;;
 
 @Component({
   selector: &#x27;app-root&#x27;,
   standalone: true,
-  imports: [RouterOutlet, BusinessesComponent, NavComponent, CommonModule],
-  providers: [DataService, WebService],
+  imports: [RouterOutlet, BudgetsComponent, NavComponent, CommonModule],
   templateUrl: &#x27;./app.component.html&#x27;,
   styleUrl: &#x27;./app.component.css&#x27;
 })
-
 export class AppComponent {
-  title &#x3D; &#x27;My bizFE&#x27;;
-
-  constructor(private webService: WebService) { }
+  title &#x3D; &#x27;Budget Directory&#x27;;
 }
 </code></pre>
     </div>
@@ -372,7 +311,7 @@ export class AppComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><navigation></navigation><router-outlet></router-outlet></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BusinessComponent', 'selector': 'business'},{'name': 'BusinessesComponent', 'selector': 'businesses'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BudgetComponent', 'selector': 'budget'},{'name': 'BudgetsComponent', 'selector': 'budgets'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

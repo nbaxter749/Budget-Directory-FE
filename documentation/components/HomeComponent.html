@@ -153,7 +153,8 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>RouterOutlet</code>
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
                 </td>
             </tr>
 
@@ -193,30 +194,52 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
-import { RouterOutlet } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
 
 @Component({
   selector: &#x27;home&#x27;,
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, RouterModule],
   templateUrl: &#x27;./home.component.html&#x27;,
   styleUrl: &#x27;./home.component.css&#x27;
 })
-export class HomeComponent {}
+export class HomeComponent {
+}
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h1 style&#x3D;&quot;margin-top:70px&quot;&gt;&lt;/h1&gt;
-&lt;h1&gt;
-  Biz Directory
-&lt;/h1&gt;
-&lt;p&gt;Welcome to the Business Directory&lt;/p&gt;
-&lt;p&gt;Choose your preferred view:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a routerLink&#x3D;&quot;/businesses&quot;&gt;Business Cards View&lt;/a&gt; - Browse businesses in a card layout&lt;/li&gt;
-  &lt;li&gt;&lt;a routerLink&#x3D;&quot;/grid&quot;&gt;Grid View&lt;/a&gt; - View all businesses in a table format&lt;/li&gt;
-&lt;/ul&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot; style&#x3D;&quot;margin-top: 70px&quot;&gt;
+  &lt;div class&#x3D;&quot;row&quot;&gt;
+    &lt;div class&#x3D;&quot;col&quot;&gt;
+      &lt;h1&gt;Welcome to Budget Directory&lt;/h1&gt;
+      &lt;p&gt;Manage and track your budgets with our comprehensive budget management system.&lt;/p&gt;
+      
+      &lt;div class&#x3D;&quot;row mt-4&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title&quot;&gt;Budget Cards View&lt;/h5&gt;
+              &lt;p class&#x3D;&quot;card-text&quot;&gt;View your budgets in a card format with pagination.&lt;/p&gt;
+              &lt;a [routerLink]&#x3D;&quot;[&#x27;/budgets&#x27;]&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;View Budgets&lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+          &lt;div class&#x3D;&quot;card&quot;&gt;
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+              &lt;h5 class&#x3D;&quot;card-title&quot;&gt;Budget Grid View&lt;/h5&gt;
+              &lt;p class&#x3D;&quot;card-text&quot;&gt;View your budgets in an interactive grid with filtering and sorting.&lt;/p&gt;
+              &lt;a [routerLink]&#x3D;&quot;[&#x27;/grid&#x27;]&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;View Grid&lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
 </code></pre>
     </div>
@@ -247,8 +270,8 @@ export class HomeComponent {}
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1 style="margin-top:70px"></h1><h1>  Biz Directory</h1><p>Welcome to the Business Directory</p><p>Choose your preferred view:</p><ul>  <li><a routerLink="/businesses">Business Cards View</a> - Browse businesses in a card layout</li>  <li><a routerLink="/grid">Grid View</a> - View all businesses in a table format</li></ul></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BusinessComponent', 'selector': 'business'},{'name': 'BusinessesComponent', 'selector': 'businesses'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container" style="margin-top: 70px">  <div class="row">    <div class="col">      <h1>Welcome to Budget Directory</h1>      <p>Manage and track your budgets with our comprehensive budget management system.</p>            <div class="row mt-4">        <div class="col-md-6">          <div class="card">            <div class="card-body">              <h5 class="card-title">Budget Cards View</h5>              <p class="card-text">View your budgets in a card format with pagination.</p>              <a [routerLink]="[\'/budgets\']" class="btn btn-primary">View Budgets</a>            </div>          </div>        </div>                <div class="col-md-6">          <div class="card">            <div class="card-body">              <h5 class="card-title">Budget Grid View</h5>              <p class="card-text">View your budgets in an interactive grid with filtering and sorting.</p>              <a [routerLink]="[\'/grid\']" class="btn btn-primary">View Grid</a>            </div>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BudgetComponent', 'selector': 'budget'},{'name': 'BudgetsComponent', 'selector': 'budgets'},{'name': 'GridComponent', 'selector': 'grid'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>
