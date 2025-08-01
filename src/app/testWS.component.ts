@@ -13,7 +13,11 @@ export class TestWSComponent implements OnInit {
     first_budget_list: any[] = [];
     second_budget_list: any[] = [];
 
-    constructor(private webService: WebService) {}
+  /**
+   * The constructor for the TestWS Component
+   * @param webService Injecting the WebService for API testing
+   */
+  constructor(private webService: WebService) {}
 
     private testBudgetsFetched() {
         this.webService.getBudgetsPage(1)

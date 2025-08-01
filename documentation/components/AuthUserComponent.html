@@ -223,6 +223,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the AuthUser Component</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -231,6 +233,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -245,6 +248,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Injecting the AuthService for user authentication data</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -285,10 +292,15 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/authuser.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/authuser.component.ts:17</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Injecting the AuthService for user authentication data</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -310,6 +322,10 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
   imports: [AsyncPipe, CommonModule],
 })
 export class AuthUserComponent {
+  /**
+   * The constructor for the AuthUser Component
+   * @param auth Injecting the AuthService for user authentication data
+   */
   constructor(public auth: AuthService) {}
 }
 </code></pre>

@@ -9,18 +9,36 @@ import { Observable } from 'rxjs';
 export class DataService {
   pageSize: number = 3;
 
+  /**
+   * The constructor for the Data Service
+   * @param http Injecting the HttpClient to the DataService class
+   */
   constructor(private http: HttpClient) {}
 
+  /**
+   * Fetch a page of budgets from the local JSON data
+   * @param page The page number requested
+   * @returns An array of budget objects for the requested page
+   */
   getBudgets(page: number) {
     let pageStart = (page - 1) * this.pageSize;
     let pageEnd = pageStart + this.pageSize;
     return jsonData.slice(pageStart, pageEnd);
   }
 
+  /**
+   * Calculate the total number of pages available
+   * @returns The total number of pages
+   */
   getLastPageNumber() {
     return Math.ceil(jsonData.length / this.pageSize);
   }
 
+  /**
+   * Fetch a specific budget by ID from the local JSON data
+   * @param id The budget ID to search for
+   * @returns An array containing the matching budget object
+   */
   getBudget(id: any) {
     let dataToReturn: any[] = [];
     jsonData.forEach(function (budget) {
@@ -31,6 +49,11 @@ export class DataService {
     return dataToReturn;
   }
 
+  /**
+   * Fetch Lorem Ipsum text from the API Ninjas service
+   * @param paragraphs The number of paragraphs to fetch
+   * @returns An Observable for the Lorem Ipsum text
+   */
   getLoremIpsum(paragraphs: number): Observable<any> {
     let API_key = 'MbJTYZVSdxgZBv3JoSLXZA==64dtY35KCzqWJm9Q';
     return this.http.get<any>(
@@ -39,6 +62,12 @@ export class DataService {
     );
   }
 
+  /**
+   * Fetch current weather data for a specific location
+   * @param lat The latitude coordinate
+   * @param lon The longitude coordinate
+   * @returns An Observable for the weather data
+   */
   getCurrentWeather(lat: number, lon: number) {
     let API_key = 'af243c3d35c6f4fa444bd0594f3f09f6';
     return this.http.get<any>(
@@ -51,6 +80,11 @@ export class DataService {
     );
   }
 
+  /**
+   * Get the color representation for a temperature value
+   * @param temp The temperature in Celsius
+   * @returns A hex color code based on the temperature
+   */
   getTemperatureColour(temp: number) {
     if (temp <= 5) return '#0000ff';
     else if (temp <= 12) return '#00ff00';
@@ -85,6 +119,11 @@ export class DataService {
     });
   }
 
+  /**
+   * Post a new review to the local JSON data
+   * @param id The budget ID to add the review to
+   * @param review The review object containing username, comment, and stars
+   */
   postReview(id: any, review: any) {
     let newReview = {
     'username' : review.username,

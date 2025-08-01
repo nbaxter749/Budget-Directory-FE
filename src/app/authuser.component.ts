@@ -10,5 +10,9 @@ import { CommonModule } from '@angular/common';
   imports: [AsyncPipe, CommonModule],
 })
 export class AuthUserComponent {
+  /**
+   * The constructor for the AuthUser Component
+   * @param auth Injecting the AuthService for user authentication data
+   */
   constructor(public auth: AuthService) {}
 }

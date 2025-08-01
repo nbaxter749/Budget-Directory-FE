@@ -259,6 +259,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the TestWS Component</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -267,6 +269,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -281,6 +284,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Injecting the WebService for API testing</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -320,8 +327,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">src/app/testWS.component.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/testWS.component.ts:57</a></div>
                         </td>
                     </tr>
 
@@ -359,8 +366,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">src/app/testWS.component.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="22"
+                                    class="link-to-prism">src/app/testWS.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -398,8 +405,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/testWS.component.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/testWS.component.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -437,8 +444,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/testWS.component.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/testWS.component.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -574,7 +581,11 @@ export class TestWSComponent implements OnInit {
     first_budget_list: any[] &#x3D; [];
     second_budget_list: any[] &#x3D; [];
 
-    constructor(private webService: WebService) {}
+  /**
+   * The constructor for the TestWS Component
+   * @param webService Injecting the WebService for API testing
+   */
+  constructor(private webService: WebService) {}
 
     private testBudgetsFetched() {
         this.webService.getBudgetsPage(1)

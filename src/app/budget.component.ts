@@ -31,6 +31,14 @@ export class BudgetComponent implements OnInit {
   reviewForm: any;
   review_list: any;
 
+  /**
+   * The constructor for the Budget Component
+   * @param dataService Injecting the DataService for external API calls
+   * @param route Injecting the ActivatedRoute for getting route parameters
+   * @param formBuilder Injecting the FormBuilder for creating reactive forms
+   * @param authService Injecting the AuthService for authentication checks
+   * @param webService Injecting the WebService for API calls
+   */
   constructor(
     public dataService: DataService,
     private route: ActivatedRoute,
@@ -133,6 +141,12 @@ export class BudgetComponent implements OnInit {
     );
   }
 
+  /**
+   * Track function for ngFor to optimize rendering performance
+   * @param index The index of the item in the array
+   * @param item The review item being tracked
+   * @returns The unique identifier for the review item
+   */
   trackByFn(index: number, item: any): any {
     return item._id?.$oid || index;
   }

@@ -16,6 +16,11 @@ export class BudgetsComponent {
   budget_list: any = [];
   page: number = 1;
 
+  /**
+   * The constructor for the Budgets Component
+   * @param dataService Injecting the DataService for pagination calculations
+   * @param webService Injecting the WebService for API calls
+   */
   constructor(public dataService: DataService, private webService: WebService) {}
 
   ngOnInit() {
@@ -47,6 +52,12 @@ export class BudgetsComponent {
     }
   }
 
+  /**
+   * Track function for ngFor to optimize rendering performance
+   * @param index The index of the item in the array
+   * @param item The budget item being tracked
+   * @returns The unique identifier for the budget item
+   */
   trackByFn(index: number, item: any): any {
     return item._id?.$oid || index;
   }
