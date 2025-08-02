@@ -17,11 +17,59 @@ Before you begin, make sure you have the following installed on your system:
 - [Node.js](https://nodejs.org/) (v16 or higher recommended)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 - [Angular CLI](https://angular.io/cli)
+- [MongoDB](https://www.mongodb.com/try/download/community) (v6.0 or higher)
+
+### Installing MongoDB
+
+1. **Download MongoDB Community Server**
+   - Go to [MongoDB Download Center](https://www.mongodb.com/try/download/community)
+   - Select your operating system and download the latest version
+
+2. **Install MongoDB**
+   - Run the installer and follow the setup wizard
+   - Choose "Complete" installation
+   - Install MongoDB Compass (GUI tool) when prompted
+
+3. **Verify Installation**
+   ```bash
+   mongosh --version
+   ```
+
+4. **Start MongoDB Service**
+   - On Windows: MongoDB should start automatically as a service
+   - On macOS/Linux: `sudo systemctl start mongod`
+
+## Database Setup
+
+### Import Budget Data
+
+To import the budget data into MongoDB:
+
+1. **Use the budget data file**
+   ```bash
+   # The budget data is located in: src/assets/budgets.json
+   ```
+
+2. **Import into MongoDB**
+   ```bash
+   mongoimport --db budgetDB --collection budgets --file "src/assets/budgets.json" --jsonArray
+   ```
+
+3. **Verify the import**
+   ```bash
+   mongosh
+   use budgetDB
+   db.budgets.find().pretty()
+   ```
+
+**Note**: The budget data file contains complete budget records with reviews and location data for the full application functionality.
+
+
 
 To install Angular CLI globally, run:
 
 ```bash
-npm install -g @angular/cli
+npm install -g @angular/cli@18.2.13
 ```
 
 ## Development server
@@ -94,28 +142,3 @@ The test component automatically runs all tests when the page loads and displays
 ## Backend Integration
 
 This frontend connects to a Flask backend running on `http://localhost:5001`. Make sure the backend server is running before testing the application.
-
-## Database Setup
-
-### Import Budget Data
-
-To import the budget data into MongoDB:
-
-1. **Use the budget data file**
-   ```bash
-   # The budget data is located in: src/assets/budgets.json
-   ```
-
-2. **Import into MongoDB**
-   ```bash
-   mongoimport --db budgetDB --collection budgets --file "src/assets/budgets.json" --jsonArray
-   ```
-
-3. **Verify the import**
-   ```bash
-   mongosh
-   use budgetDB
-   db.budgets.find().pretty()
-   ```
-
-**Note**: The budget data file contains complete budget records with reviews and location data for the full application functionality.
