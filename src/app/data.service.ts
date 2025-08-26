@@ -2,6 +2,7 @@ import jsonData from '../assets/budgets.json';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 /**
  * The Data Service provides access to budget data and external APIs
@@ -62,7 +63,7 @@ export class DataService {
    * @returns An Observable for the Lorem Ipsum text
    */
   getLoremIpsum(paragraphs: number): Observable<any> {
-    let API_key = 'MbJTYZVSdxgZBv3JoSLXZA==64dtY35KCzqWJm9Q';
+    const API_key = environment.loremIpsumApiKey;
     return this.http.get<any>(
       'https://api.api-ninjas.com/v1/loremipsum?paragraphs=' + paragraphs,
       { headers: { 'X-Api-Key': API_key } }
@@ -76,7 +77,7 @@ export class DataService {
    * @returns An Observable for the weather data
    */
   getCurrentWeather(lat: number, lon: number) {
-    let API_key = 'af243c3d35c6f4fa444bd0594f3f09f6';
+    const API_key = environment.openWeatherApiKey;
     return this.http.get<any>(
       'https://api.openweathermap.org/data/2.5/weather?lat=' +
         lat +

@@ -6,6 +6,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { WebService } from './web.service';
+import { environment } from '../environments/environment';
 
 /**
  * The Budget Component displays detailed information about a specific budget
@@ -106,11 +107,25 @@ export class BudgetComponent implements OnInit {
     private webService: WebService
   ) {}
 
+  private ensureGoogleMapsLoaded() {
+    const existing = document.querySelector('script[data-google-maps-loader]');
+    if (existing) return;
+    const params = new URLSearchParams({
+      key: environment.googleMapsApiKey,
+      v: 'weekly'
+    });
+    const script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?' + params.toString();
+    script.setAttribute('data-google-maps-loader', 'true');
+    document.head.appendChild(script);
+  }
+
   /**
    * Initialize the component by setting up the review form,
    * loading budget data, and fetching related information
    */
   ngOnInit() {
+    this.ensureGoogleMapsLoaded();
     this.reviewForm = this.formBuilder.group({
       username: ['', Validators.required],
       comment: ['', Validators.required],

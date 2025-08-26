@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 /**
  * The Web Service provides access to the endpoints of the
@@ -25,7 +26,7 @@ export class WebService {
    */
   getBudgets() {
     return this.http.get<any>(
-      'http://localhost:5001/api/v1.0/allbudgets'
+      environment.apiBaseUrl + '/api/v1.0/allbudgets'
     );
   }
 
@@ -36,7 +37,7 @@ export class WebService {
    */
   getBudgetsPage(page: number) {
     return this.http.get<any[]>(
-      'http://localhost:5001/api/v1.0/budgets?pn=' + page + '&ps=' + this.pageSize
+      environment.apiBaseUrl + '/api/v1.0/budgets?pn=' + page + '&ps=' + this.pageSize
     );
   }
 
@@ -47,7 +48,7 @@ export class WebService {
    */
   getBudget(id: any) {
     return this.http.get<any>(
-      'http://localhost:5001/api/v1.0/budgets/' + id
+      environment.apiBaseUrl + '/api/v1.0/budgets/' + id
     );
   }
 
@@ -58,7 +59,7 @@ export class WebService {
    */
   getReviews(id: any) {
     return this.http.get<any>(
-      'http://localhost:5001/api/v1.0/budgets/' +
+      environment.apiBaseUrl + '/api/v1.0/budgets/' +
       id + '/reviews'
     );
   }
@@ -75,7 +76,7 @@ export class WebService {
     postData.append("comment", review.comment);
     postData.append("stars", review.stars);
     return this.http.post<any>(
-    'http://localhost:5001/api/v1.0/budgets/' +
+    environment.apiBaseUrl + '/api/v1.0/budgets/' +
     id + "/reviews", postData);
   }
 }

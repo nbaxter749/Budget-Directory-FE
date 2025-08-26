@@ -88,6 +88,26 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Environment setup
+
+Create `src/environments/environment.ts` from the example and fill values:
+
+```ts
+// Budget-Directory-FE/src/environments/environment.ts (create from environment.example.ts)
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:5001',
+  auth0Domain: '',
+  auth0ClientId: '',
+  googleMapsApiKey: '',
+  openWeatherApiKey: '',
+  loremIpsumApiKey: ''
+};
+```
+
+Notes:
+- The real `environment.ts` is gitignored; commit only `src/environments/environment.example.ts`.
+
 ## Documentation
 
 To generate and serve the project documentation:
